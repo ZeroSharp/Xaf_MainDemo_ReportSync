@@ -1,6 +1,8 @@
 <#@ template language="C#" debug="True" #>
 <#@ output extension="txt" #>
 <#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ assembly name="System.Linq.dll"#>
 <#@ assembly name="System.Drawing.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v12.2.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.ExpressApp.Reports.v12.2.dll"#>
@@ -12,20 +14,22 @@
 <#@ assembly name="T4Toolbox.dll"#>
 <#@ include file="T4Toolbox.tt" #>
 <#
-	string fullFilename = @"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.repx";
-	//string fullFilename = @"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\TasksStateReport.repx";
-	string solutionFilename = @"\" + fullFilename.Substring(Host.ResolveAssemblyReference("$(SolutionDir)").Length);
-	var templateFile = Host.TemplateFile;
+	string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
+	string[] files = Directory.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories);
+	foreach(string fullFilename in files)
+	{
+		string solutionFilename = @"\" + fullFilename.Substring(solutionDir.Length);
+		var templateFile = Host.TemplateFile;
 	
-    var mainPartTemplate = new MainPartTemplate();
-	mainPartTemplate.RepxFileName = fullFilename;
-	string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
-	mainPartTemplate.RenderToFile(mainPartOutputFilename);
+		var mainPartTemplate = new MainPartTemplate();
+		mainPartTemplate.RepxFileName = fullFilename;
+		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
+		mainPartTemplate.RenderToFile(mainPartOutputFilename);
 
-	var resxPartTemplate = new ResxPartTemplate();
-	string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
-	resxPartTemplate.RenderToFile(resxPartOutputFilename);
-
+		var resxPartTemplate = new ResxPartTemplate();
+		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
+		resxPartTemplate.RenderToFile(resxPartOutputFilename);
+	}
 	//return this.GenerationEnvironment.ToString();
 
 //	var assembly = typeof(MainDemo.Module).Assembly;
@@ -86,7 +90,6 @@
 			this.PushIndent("    ");
 	            var loader = new XtraReportLoader(new XafReport(), RepxFileName);
 		        var mainPartFactory = new XtraReportMainPartFactory(loader);
-				
 				WriteLine(mainPartFactory.GetMainCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();
