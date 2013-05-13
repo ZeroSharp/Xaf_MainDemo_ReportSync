@@ -1,0 +1,105 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="txt" #>
+<#@ import namespace="System.IO" #>
+<#@ assembly name="System.Drawing.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v12.2.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.ExpressApp.Reports.v12.2.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Printing.v12.2.Core.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.XtraReports.v12.2.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\MainDemo.Reports.dll"#>
+<#@ import namespace="DevExpress.ExpressApp.Reports" #>
+<#@ import namespace="MainDemo.Reports" #>
+<#@ assembly name="T4Toolbox.dll"#>
+<#@ include file="T4Toolbox.tt" #>
+<#
+	string fullFilename = @"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.repx";
+	//string fullFilename = @"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\TasksStateReport.repx";
+	string solutionFilename = @"\" + fullFilename.Substring(Host.ResolveAssemblyReference("$(SolutionDir)").Length);
+	var templateFile = Host.TemplateFile;
+	
+    var mainPartTemplate = new MainPartTemplate();
+	mainPartTemplate.RepxFileName = fullFilename;
+	string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
+	mainPartTemplate.RenderToFile(mainPartOutputFilename);
+
+	var resxPartTemplate = new ResxPartTemplate();
+	string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
+	resxPartTemplate.RenderToFile(resxPartOutputFilename);
+
+	//return this.GenerationEnvironment.ToString();
+
+//	var assembly = typeof(MainDemo.Module).Assembly;
+//	var types = assembly.GetTypes()
+//						.Where(t => typeof(DevExpress.Xpo.IXPObject).IsAssignableFrom(t))
+//						.OrderBy(t => t.Name);
+//
+//	var countTotal = 0;
+//	WriteLine(String.Format("// {0,-60} | {1, 5} |", "Assembly", "Reports"));
+//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
+//	foreach (var type in types)
+//	{
+//		var classRules = type
+//					.GetCustomAttributes(typeof(RuleBaseAttribute), false)
+//					.Cast<RuleBaseAttribute>()
+//					.OrderBy(a => a.Name);
+//		var propertyRules = type
+//						.GetMembers(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.DeclaredOnly)
+//						.SelectMany(p => p.GetCustomAttributes(typeof(RuleBaseAttribute), false))
+//						.Cast<RuleBaseAttribute>()
+//						.OrderBy(a => a.Name);
+//		var rules = classRules
+//						.Union(propertyRules);
+//		if (rules.Count() > 0)
+//		{
+//			foreach (var rule in rules)
+//			{
+//				//var template = new TypeSpecTemplate();
+//				//template.Rule = rule;
+//				//template.TemplateFile = @"\" + Host.TemplateFile.Substring(Host.ResolveAssemblyReference("$(SolutionDir)").Length);
+//				//template.Output.Project = @"..\..\NetObjects.UnitTests\NetObjects.UnitTests.csproj";
+//				//template.Output.File = "Generated spec report.txt";
+//				//template.Output.PreserveExistingFile = true;
+//				//template.Type = type;
+//				//template.RenderToFile(@"Objects\Validation\Netting\" + type.Name + @"\" + RuleHelper.ImproveRuleName(type.Name, rule.Name) + "_Spec.cs");
+//			}
+//			var countByType = rules.Count();
+//			countTotal = countTotal + countByType;
+//			if (countByType > 0)
+//			{
+//				WriteLine(String.Format("// {0,-60} | {1, 5} |", type.Name, countByType));
+//			}
+//		}
+//	}
+//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
+//	WriteLine(String.Format("// {0,-60} | {1, 5} |", "Total", countTotal));
+//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
+#>
+
+<#+
+    public class MainPartTemplate : T4Toolbox.Template
+    {
+		public string RepxFileName { get; set; }
+
+        public override string TransformText()
+        {		
+			var count = 0;
+			this.PushIndent("    ");
+	            var loader = new XtraReportLoader(new XafReport(), RepxFileName);
+		        var mainPartFactory = new XtraReportMainPartFactory(loader);
+				
+				WriteLine(mainPartFactory.GetMainCode());
+			this.PopIndent();
+			return this.GenerationEnvironment.ToString();
+		}
+    }
+#>
+
+<#+
+    public class ResxPartTemplate : T4Toolbox.Template
+    {
+        public override string TransformText()
+        {		
+			return new XtraReportResourceFactory().GetResxContents();
+		}
+    }
+#>

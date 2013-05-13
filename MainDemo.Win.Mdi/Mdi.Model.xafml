@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application>
+  <Options UIType="TabbedMDI"/>
+  <SchemaModules>
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.4.4025" />
+		<SchemaModule Name="ViewVariantsModule" Version="7.3.4.4025" />
+		<SchemaModule Name="SystemModule" Version="7.3.4.4025" />
+		<SchemaModule Name="ValidationModule" Version="7.3.4.4025" />
+		<SchemaModule Name="SystemWindowsFormsModule" Version="7.3.4.4025" IsNewNode="True" />
+		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.4.4025" IsNewNode="True" />
+	</SchemaModules>
+</Application>
