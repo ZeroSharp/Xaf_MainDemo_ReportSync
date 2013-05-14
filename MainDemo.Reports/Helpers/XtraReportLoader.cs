@@ -45,11 +45,9 @@ namespace MainDemo.Reports
                 throw new IOException(String.Format("File {0} was not found.", repxFileName));
 
             Report = report;
-            Contents = File.ReadAllText(repxFileName);
             Report.LoadLayout(repxFileName);
         }
 
         public XtraReport Report { get; private set; }
-        public string Contents { get; private set; }
     }
 }

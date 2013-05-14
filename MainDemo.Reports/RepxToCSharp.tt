@@ -2,7 +2,9 @@
 <#@ output extension="txt" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
-<#@ assembly name="System.Linq.dll"#>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="System.Core" #>
 <#@ assembly name="System.Drawing.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v12.2.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.ExpressApp.Reports.v12.2.dll"#>
@@ -15,8 +17,11 @@
 <#@ include file="T4Toolbox.tt" #>
 <#
 	string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
-	string[] files = Directory.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories);
-	foreach(string fullFilename in files)
+	var files = Directory
+				.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories)
+				.Where(x => !x.Contains(@"\bin\"));
+
+	foreach(string fullFilename in files.Take(1))
 	{
 		string solutionFilename = @"\" + fullFilename.Substring(solutionDir.Length);
 		var templateFile = Host.TemplateFile;
@@ -25,6 +30,11 @@
 		mainPartTemplate.RepxFileName = fullFilename;
 		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
 		mainPartTemplate.RenderToFile(mainPartOutputFilename);
+
+     	var scriptsPartTemplate = new ScriptsPartTemplate();
+		scriptsPartTemplate.RepxFileName = fullFilename;
+		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".scripts.cs");
+		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 
 		var resxPartTemplate = new ResxPartTemplate();
 		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
@@ -88,9 +98,28 @@
         {		
 			var count = 0;
 			this.PushIndent("    ");
-	            var loader = new XtraReportLoader(new XafReport(), RepxFileName);
-		        var mainPartFactory = new XtraReportMainPartFactory(loader);
+				var contentsExtractor = new XtraReportContentsExtractor(RepxFileName);
+		        var mainPartFactory = new XtraReportMainPartFactory(contentsExtractor);
 				WriteLine(mainPartFactory.GetMainCode());
+			this.PopIndent();
+			return this.GenerationEnvironment.ToString();
+		}
+    }
+#>
+
+<#+
+    public class ScriptsPartTemplate : T4Toolbox.Template
+    {
+		public string RepxFileName { get; set; }
+
+        public override string TransformText()
+        {		
+			var count = 0;
+			this.PushIndent("    ");
+	            var loader = new XtraReportLoader(new XafReport(), RepxFileName);
+				var scriptExtractor = new XtraReportScriptExtractor(new ResourceStringDeserializer());
+		        var mainPartFactory = new XtraReportScriptsPartFactory(RepxFileName, scriptExtractor);
+				WriteLine(mainPartFactory.GetScriptsCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();
 		}

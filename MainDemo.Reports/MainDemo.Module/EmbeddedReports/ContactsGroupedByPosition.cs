@@ -89,7 +89,7 @@
     /// </XRTypeInfo>
     namespace XtraReportSerialization {
         
-        public class xafReport1 : DevExpress.XtraReports.UI.XtraReport {
+        partial class xafReport1 : DevExpress.ExpressApp.Reports.XafReport {
             private DevExpress.XtraReports.UI.DetailBand detailBand1;
             private DevExpress.XtraReports.UI.XRLabel xrLabel3;
             private DevExpress.XtraReports.UI.XRLabel xrLabel2;
@@ -222,15 +222,6 @@
                 this.Version = "12.2";
                 ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             }
-        
-    // -- Start of embedded scripts -- 
-    
-    private void xrLabel4_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e) {
-    	xrLabel4.Text = xrLabel4.Text + " Test!";
-    }
-    
-    // -- End of embedded scripts -- 
-    
-    }
+        }
     }
 

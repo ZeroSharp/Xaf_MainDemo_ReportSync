@@ -9,8 +9,9 @@ namespace MainDemo.Reports
     {
         private static XtraReportMainPartFactory CreateReportHelperReader(string reportFileName)
         {
-            var loader = new XtraReportLoader(new XafReport(), reportFileName);
-            return new XtraReportMainPartFactory(loader);
+            var contentsExtractor = new XtraReportContentsExtractor(reportFileName);
+            var scriptExtractor = new XtraReportScriptExtractor(new ResourceStringDeserializer());
+            return new XtraReportMainPartFactory(contentsExtractor);
         }
 
         private static string RemoveIgnoredSections(string fullSourceCode)
