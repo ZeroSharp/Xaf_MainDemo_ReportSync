@@ -25,16 +25,16 @@
 	{
 		string solutionFilename = @"\" + fullFilename.Substring(solutionDir.Length);
 		var templateFile = Host.TemplateFile;
-	
-		var mainPartTemplate = new MainPartTemplate();
-		mainPartTemplate.RepxFileName = fullFilename;
-		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
-		mainPartTemplate.RenderToFile(mainPartOutputFilename);
 
      	var scriptsPartTemplate = new ScriptsPartTemplate();
 		scriptsPartTemplate.RepxFileName = fullFilename;
-		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".scripts.cs");
+		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
 		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
+	
+		var mainPartTemplate = new DesignerPartTemplate();
+		mainPartTemplate.RepxFileName = fullFilename;
+		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, "Designer.cs");
+		mainPartTemplate.RenderToFile(mainPartOutputFilename);
 
 		var resxPartTemplate = new ResxPartTemplate();
 		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
@@ -90,7 +90,7 @@
 #>
 
 <#+
-    public class MainPartTemplate : T4Toolbox.Template
+    public class DesignerPartTemplate : T4Toolbox.Template
     {
 		public string RepxFileName { get; set; }
 
@@ -98,8 +98,7 @@
         {		
 			var count = 0;
 			this.PushIndent("    ");
-				var contentsExtractor = new XtraReportContentsExtractor(RepxFileName);
-		        var mainPartFactory = new XtraReportMainPartFactory(contentsExtractor);
+		        var mainPartFactory = new XtraReportDesignerPartFactory(RepxFileName);
 				WriteLine(mainPartFactory.GetMainCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();
@@ -116,9 +115,7 @@
         {		
 			var count = 0;
 			this.PushIndent("    ");
-	            var loader = new XtraReportLoader(new XafReport(), RepxFileName);
-				var scriptExtractor = new XtraReportScriptExtractor(new ResourceStringDeserializer());
-		        var mainPartFactory = new XtraReportScriptsPartFactory(RepxFileName, scriptExtractor);
+		        var mainPartFactory = new XtraReportScriptsPartFactory(RepxFileName);
 				WriteLine(mainPartFactory.GetScriptsCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();

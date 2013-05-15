@@ -1,17 +1,13 @@
 using System;
 using System.Linq;
-using System.IO;
-using DevExpress.ExpressApp.Reports;
 
 namespace MainDemo.Reports
 {
     public static class AssertReportScriptsEx
     {
-        private static XtraReportMainPartFactory CreateReportHelperReader(string reportFileName)
+        private static XtraReportDesignerPartFactory CreateReportHelperReader(string reportFileName)
         {
-            var contentsExtractor = new XtraReportContentsExtractor(reportFileName);
-            var scriptExtractor = new XtraReportScriptExtractor(new ResourceStringDeserializer());
-            return new XtraReportMainPartFactory(contentsExtractor);
+            return new XtraReportDesignerPartFactory(reportFileName);
         }
 
         private static string RemoveIgnoredSections(string fullSourceCode)
@@ -22,7 +18,7 @@ namespace MainDemo.Reports
 
         public static void AssertReportContainsScriptSource(string reportFileName, String expectedScriptSource)
         {
-            XtraReportMainPartFactory reportHelper = CreateReportHelperReader(reportFileName);
+            XtraReportDesignerPartFactory reportHelper = CreateReportHelperReader(reportFileName);
             string source = reportHelper.GetMainCode();
             if (RemoveIgnoredSections(expectedScriptSource) != RemoveIgnoredSections(source))
                 throw new Exception("Expected scripts source does not match.");

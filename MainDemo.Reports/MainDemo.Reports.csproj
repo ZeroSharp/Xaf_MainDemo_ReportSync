@@ -58,14 +58,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AssertReportScriptsEx.cs" />
+    <Compile Include="Helpers\ResourceScriptExtractor.cs" />
+    <Compile Include="Helpers\ResourceStringDeserializer.cs" />
+    <Compile Include="Helpers\ScriptExtractorFactory.cs" />
+    <Compile Include="Helpers\XtraReportContentsExtractor.cs" />
+    <Compile Include="Helpers\XtraReportLoader.cs" />
+    <Compile Include="Helpers\XtraReportScriptExtractor_Slow.cs" />
     <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.scripts.cs" />
+    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.Designer.cs">
+      <DependentUpon>ContactsGroupedByPosition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\XtraReportScriptsPartFactory.cs" />
-    <Compile Include="Helpers\XtraReportLoader.cs" />
-    <Compile Include="Helpers\XtraReportMainPartFactory.cs" />
+    <Compile Include="Helpers\UniqueIdentifierProvider.cs" />
+    <Compile Include="Helpers\XtraReportDesignerPartFactory.cs" />
     <Compile Include="Helpers\XtraReportScriptParser.cs" />
     <Compile Include="Helpers\XtraReportValidator.cs" />
   </ItemGroup>
@@ -76,8 +84,8 @@
       <LastGenOutput>RepxToCSharp.txt</LastGenOutput>
       <LastOutputs>
 .\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs
+.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.Designer.cs
 .\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.resx
-.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.scripts.cs
 </LastOutputs>
     </None>
   </ItemGroup>
