@@ -1,48 +1,25 @@
 using System;
-using System.IO;
 using System.Linq;
-using NUnit.Framework;
 using System.Text;
+using DevExpress.XtraReports.UI;
 
 namespace MainDemo.Reports
 {
-    [TestFixture]
-    public class XtraReportScriptsPartFactory_Tests
-    {
-        [Test]
-        public void Test_GetFullSourceCode_ContactsGroupedByPosition()
-        {
-            var factory = new XtraReportScriptsPartFactory(@"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.repx");
-            string source = factory.GetScriptsCode();
-            Console.WriteLine(source);
-            Assert.IsNotNull(source);
-        }
-
-        [Test]
-        public void Test_GetFullSourceCode_TasksStateReport()
-        {
-            var factory = new XtraReportScriptsPartFactory(@"C:\Projects\github\Xaf_MainDemo_ReportSync\MainDemo.Module\EmbeddedReports\TasksStateReport.repx");
-            string source = factory.GetScriptsCode();
-            Console.WriteLine(source);
-            Assert.IsNotNull(source);
-        }
-    }
-
     public class XtraReportScriptsPartFactory
     {
-        public XtraReportScriptsPartFactory(string repxFileName)
+        public XtraReportScriptsPartFactory(XtraReportReader reader)
         {
-            if (!File.Exists(repxFileName))
-                throw new IOException(String.Format("File {0} does not exist", repxFileName));
+            if (reader == null)
+                throw new ArgumentNullException("reader");
 
-            Contents = File.ReadAllText(repxFileName);
-            ScriptExtractor = new ScriptExtractorFactory().CreateSlowScriptExtractor(repxFileName);
-            NameSpace = new UniqueIdentifierProvider(repxFileName).NameSpace;
+            Contents = reader.Contents;
+            ScriptExtractor = new XtraReportScriptExtractor(new XtraReportLoader(new XtraReport(), reader.FullRepxFileName));
+            NameSpace = new UniqueIdentifierProvider(reader.RelativeRepxFileName).NameSpace;
         }
 
         private string NameSpace { get; set; }
         private string Contents { get; set; }
-        private IScriptExtractor ScriptExtractor { get; set; }        
+        private XtraReportScriptExtractor ScriptExtractor { get; set; }        
 
         private string GetReportName()
         {

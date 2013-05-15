@@ -4,9 +4,9 @@ using DevExpress.XtraReports.UI;
 
 namespace MainDemo.Reports
 {
-    public class XtraReportScriptExtractor_Slow : IScriptExtractor
+    public class XtraReportScriptExtractor
     {
-        public XtraReportScriptExtractor_Slow(XtraReportLoader loader)
+        public XtraReportScriptExtractor(XtraReportLoader loader)
         {
             if (loader == null)
                 throw new ArgumentNullException("loader");

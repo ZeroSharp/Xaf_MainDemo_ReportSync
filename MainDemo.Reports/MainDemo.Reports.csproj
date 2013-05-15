@@ -44,9 +44,6 @@
     <Reference Include="DevExpress.XtraReports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -57,14 +54,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AssertReportScriptsEx.cs" />
     <Compile Include="Helpers\ChecksumCalculator.cs" />
-    <Compile Include="Helpers\ResourceScriptExtractor.cs" />
-    <Compile Include="Helpers\ResourceStringDeserializer.cs" />
-    <Compile Include="Helpers\ScriptExtractorFactory.cs" />
-    <Compile Include="Helpers\XtraReportContentsExtractor.cs" />
+    <Compile Include="Helpers\ChecksumExtractor.cs" />
     <Compile Include="Helpers\XtraReportLoader.cs" />
-    <Compile Include="Helpers\XtraReportScriptExtractor_Slow.cs" />
+    <Compile Include="Helpers\XtraReportReader.cs" />
+    <Compile Include="Helpers\XtraReportScriptExtractor.cs" />
     <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -82,21 +76,11 @@
     <Compile Include="Helpers\UniqueIdentifierProvider.cs" />
     <Compile Include="Helpers\XtraReportDesignerPartFactory.cs" />
     <Compile Include="Helpers\XtraReportScriptParser.cs" />
-    <Compile Include="Helpers\XtraReportValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="RepxToCSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RepxToCSharp.txt</LastGenOutput>
-      <LastOutputs>
-.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs
-.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.Designer.cs
-.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.resx
-.\MainDemo.Module\EmbeddedReports\TasksStateReport.cs
-.\MainDemo.Module\EmbeddedReports\TasksStateReport.Designer.cs
-.\MainDemo.Module\EmbeddedReports\TasksStateReport.resx
-</LastOutputs>
     </None>
   </ItemGroup>
   <ItemGroup>

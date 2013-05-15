@@ -28,11 +28,16 @@
 		total = total + 1;
 
 		var templateFile = Host.TemplateFile;
-		string relativeFilename = @"\" + fullFilename.Substring(solutionDir.Length);
+		
+		string projectDirectoryName = Path.GetDirectoryName(templateFile);
+		string solutionDirectoryName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(templateFile), ".."));
+		string relativeFileName = @"\" + fullFilename.Substring(solutionDir.Length);
 
-		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, ".cs");
-		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, "Designer.cs");
-		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, ".resx");
+		var reader = new XtraReportReader(solutionDirectoryName, relativeFileName);
+		
+		string scriptsPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, ".cs");
+		string mainPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, "Designer.cs");
+		string resxPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, ".resx");
 
 		string repxChecksum = new ChecksumCalculator(fullFilename).Get();
 		string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
@@ -41,15 +46,13 @@
 		if (preserveExisting)
 			skipped = skipped + 1;
 
-     	var scriptsPartTemplate = new ScriptsPartTemplate();
+     	var scriptsPartTemplate = new ScriptsPartTemplate(reader);
 		scriptsPartTemplate.Checksum = repxChecksum;
 		scriptsPartTemplate.Output.PreserveExistingFile = preserveExisting;
-		scriptsPartTemplate.RepxFileName = fullFilename;
 		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 	
-		var mainPartTemplate = new DesignerPartTemplate();
+		var mainPartTemplate = new DesignerPartTemplate(reader);
 		mainPartTemplate.Output.PreserveExistingFile = preserveExisting;
-		mainPartTemplate.RepxFileName = fullFilename;
 		mainPartTemplate.RenderToFile(mainPartOutputFilename);
 
 		var resxPartTemplate = new ResxPartTemplate();
@@ -63,40 +66,47 @@
 #>
 
 <#+
-    public class DesignerPartTemplate : T4Toolbox.Template
+    public abstract class XtraReportTemplateBase : T4Toolbox.Template
     {
-		public string RepxFileName { get; set; }
+		public XtraReportTemplateBase(XtraReportReader reader)
+        {
+			Reader = reader;
+		}
+
+		public XtraReportReader Reader { get; private set; }
+    }
+
+    public class DesignerPartTemplate : XtraReportTemplateBase
+    {
+		public DesignerPartTemplate(XtraReportReader reader) : base(reader) {}
 
         public override string TransformText()
         {		
 			this.PushIndent("    ");
-		        var mainPartFactory = new XtraReportDesignerPartFactory(RepxFileName);
+		        var mainPartFactory = new XtraReportDesignerPartFactory(Reader);
 				WriteLine(mainPartFactory.GetMainCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();
 		}
     }
-#>
 
-<#+
-    public class ScriptsPartTemplate : T4Toolbox.Template
+    public class ScriptsPartTemplate : XtraReportTemplateBase
     {
-		public string RepxFileName { get; set; }
+		public ScriptsPartTemplate(XtraReportReader reader) : base(reader) {}
+
 		public string Checksum { get; set; }
 
         public override string TransformText()
         {		
 			this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
 			this.PushIndent("    ");
-		        var mainPartFactory = new XtraReportScriptsPartFactory(RepxFileName);
+		        var mainPartFactory = new XtraReportScriptsPartFactory(Reader);
 				WriteLine(mainPartFactory.GetScriptsCode());
 			this.PopIndent();
 			return this.GenerationEnvironment.ToString();
 		}
     }
-#>
 
-<#+
     public class ResxPartTemplate : T4Toolbox.Template
     {
         public override string TransformText()

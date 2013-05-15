@@ -22,10 +22,10 @@ namespace MainDemo.Reports
                 return null;
 
             return String.Join("\n",
-                scriptsSource.Split('\n')
-                  .Where(line => IsUsing(line))
-                  .ToArray()
-            ).Trim() + Environment.NewLine;
+                            scriptsSource.Split('\n')
+                              .Where(line => IsUsing(line))
+                              .ToArray()
+                        ).Trim() + Environment.NewLine;
         }
 
         public string RemoveUsingReferences(string scriptsSource)
@@ -34,21 +34,21 @@ namespace MainDemo.Reports
                 return null;
 
             return String.Join("\n",
-                scriptsSource.Split('\n')
-                  .Where(line => !IsUsing(line))
-                  .ToArray()
-            ).Trim() + Environment.NewLine;
+                            scriptsSource.Split('\n')
+                            .Where(line => !IsUsing(line))
+                            .ToArray()
+                          ).Trim() + Environment.NewLine;
         }
 
         public string RemoveIgnoredSections(string fullSourceCode)
         {
             return String.Join("\n",
-                    fullSourceCode.Split('\n')
-                        .SkipWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.StartMarker))
-                        .Skip(1)
-                        .TakeWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.EndMarker))
-                        .ToArray()
-                    ).Trim() + Environment.NewLine;
+                            fullSourceCode.Split('\n')
+                                .SkipWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.StartMarker))
+                                .Skip(1)
+                                .TakeWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.EndMarker))
+                                .ToArray()
+                            ).Trim() + Environment.NewLine;
         }
     }
 }
