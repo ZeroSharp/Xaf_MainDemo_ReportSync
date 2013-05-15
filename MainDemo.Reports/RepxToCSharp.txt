@@ -1,1 +1,4 @@
-﻿
+﻿Total reports found                                         :  2
+  Total reports generated                                   :  0
+  Total reports skipped because unchanged                   :  2
+

@@ -21,72 +21,45 @@
 				.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories)
 				.Where(x => !x.Contains(@"\bin\"));
 
-	foreach(string fullFilename in files.Take(1))
+	int total = 0;
+	int skipped = 0;
+	foreach(string fullFilename in files)
 	{
-		string solutionFilename = @"\" + fullFilename.Substring(solutionDir.Length);
+		total = total + 1;
+
 		var templateFile = Host.TemplateFile;
+		string relativeFilename = @"\" + fullFilename.Substring(solutionDir.Length);
+
+		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, ".cs");
+		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, "Designer.cs");
+		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(relativeFilename, ".resx");
+
+		string repxChecksum = new ChecksumCalculator(fullFilename).Get();
+		string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
+
+		bool preserveExisting = repxChecksum == lastChecksum;
+		if (preserveExisting)
+			skipped = skipped + 1;
 
      	var scriptsPartTemplate = new ScriptsPartTemplate();
+		scriptsPartTemplate.Checksum = repxChecksum;
+		scriptsPartTemplate.Output.PreserveExistingFile = preserveExisting;
 		scriptsPartTemplate.RepxFileName = fullFilename;
-		string scriptsPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".cs");
 		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 	
 		var mainPartTemplate = new DesignerPartTemplate();
+		mainPartTemplate.Output.PreserveExistingFile = preserveExisting;
 		mainPartTemplate.RepxFileName = fullFilename;
-		string mainPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, "Designer.cs");
 		mainPartTemplate.RenderToFile(mainPartOutputFilename);
 
 		var resxPartTemplate = new ResxPartTemplate();
-		string resxPartOutputFilename = Path.GetDirectoryName(templateFile) + Path.ChangeExtension(solutionFilename, ".resx");
+		resxPartTemplate.Output.PreserveExistingFile = preserveExisting;
 		resxPartTemplate.RenderToFile(resxPartOutputFilename);
 	}
-	//return this.GenerationEnvironment.ToString();
 
-//	var assembly = typeof(MainDemo.Module).Assembly;
-//	var types = assembly.GetTypes()
-//						.Where(t => typeof(DevExpress.Xpo.IXPObject).IsAssignableFrom(t))
-//						.OrderBy(t => t.Name);
-//
-//	var countTotal = 0;
-//	WriteLine(String.Format("// {0,-60} | {1, 5} |", "Assembly", "Reports"));
-//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
-//	foreach (var type in types)
-//	{
-//		var classRules = type
-//					.GetCustomAttributes(typeof(RuleBaseAttribute), false)
-//					.Cast<RuleBaseAttribute>()
-//					.OrderBy(a => a.Name);
-//		var propertyRules = type
-//						.GetMembers(System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.DeclaredOnly)
-//						.SelectMany(p => p.GetCustomAttributes(typeof(RuleBaseAttribute), false))
-//						.Cast<RuleBaseAttribute>()
-//						.OrderBy(a => a.Name);
-//		var rules = classRules
-//						.Union(propertyRules);
-//		if (rules.Count() > 0)
-//		{
-//			foreach (var rule in rules)
-//			{
-//				//var template = new TypeSpecTemplate();
-//				//template.Rule = rule;
-//				//template.TemplateFile = @"\" + Host.TemplateFile.Substring(Host.ResolveAssemblyReference("$(SolutionDir)").Length);
-//				//template.Output.Project = @"..\..\NetObjects.UnitTests\NetObjects.UnitTests.csproj";
-//				//template.Output.File = "Generated spec report.txt";
-//				//template.Output.PreserveExistingFile = true;
-//				//template.Type = type;
-//				//template.RenderToFile(@"Objects\Validation\Netting\" + type.Name + @"\" + RuleHelper.ImproveRuleName(type.Name, rule.Name) + "_Spec.cs");
-//			}
-//			var countByType = rules.Count();
-//			countTotal = countTotal + countByType;
-//			if (countByType > 0)
-//			{
-//				WriteLine(String.Format("// {0,-60} | {1, 5} |", type.Name, countByType));
-//			}
-//		}
-//	}
-//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
-//	WriteLine(String.Format("// {0,-60} | {1, 5} |", "Total", countTotal));
-//	WriteLine(String.Format("// {0,-60} | {1, 5} |", new String('=', 60), new String('=', 5)));
+	WriteLine(string.Format("{0,-60}:{1, 3}", "Total reports found", total));
+	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
+	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 #>
 
 <#+
@@ -96,7 +69,6 @@
 
         public override string TransformText()
         {		
-			var count = 0;
 			this.PushIndent("    ");
 		        var mainPartFactory = new XtraReportDesignerPartFactory(RepxFileName);
 				WriteLine(mainPartFactory.GetMainCode());
@@ -110,10 +82,11 @@
     public class ScriptsPartTemplate : T4Toolbox.Template
     {
 		public string RepxFileName { get; set; }
+		public string Checksum { get; set; }
 
         public override string TransformText()
         {		
-			var count = 0;
+			this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
 			this.PushIndent("    ");
 		        var mainPartFactory = new XtraReportScriptsPartFactory(RepxFileName);
 				WriteLine(mainPartFactory.GetScriptsCode());

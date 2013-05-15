@@ -40,9 +40,9 @@ namespace MainDemo.Reports
             NameSpace = new UniqueIdentifierProvider(repxFileName).NameSpace;
         }
 
-        public string NameSpace { get; private set; }
+        private string NameSpace { get; set; }
         private string Contents { get; set; }
-        public IScriptExtractor ScriptExtractor { get; set; }        
+        private IScriptExtractor ScriptExtractor { get; set; }        
 
         private string GetReportName()
         {
@@ -69,6 +69,7 @@ namespace MainDemo.Reports
             string scriptSection = GetScriptSection();
             var parser = new XtraReportScriptParser();
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("");
             sb.AppendLine("namespace MainDemo.Reports." + NameSpace + " {");
             sb.AppendLine(parser.CollectUsingReferences(scriptSection));
             sb.AppendLine("    public partial class " + GetReportName());

@@ -1,4 +1,6 @@
-﻿    namespace MainDemo.Reports.C__Projects_github_Xaf_MainDemo_ReportSync_MainDemo_Module_EmbeddedReports_ContactsGroupedByPosition_repx {
+﻿// Checksum:878CA55E414FA6BD3493EC5B3FA81DF4
+    
+    namespace MainDemo.Reports.C__Projects_github_Xaf_MainDemo_ReportSync_MainDemo_Module_EmbeddedReports_ContactsGroupedByPosition_repx {
     
     
         public partial class xafReport1
