@@ -17,66 +17,66 @@
 <#@ assembly name="T4Toolbox.dll"#>
 <#@ include file="T4Toolbox.tt" #>
 <#
-	Stopwatch stopwatch = new Stopwatch();
-	stopwatch.Start();
-	
-	Console.Beep();
+    Stopwatch stopwatch = new Stopwatch();
+    stopwatch.Start();
+    
+    Console.Beep();
 
-	var templateFile = Host.TemplateFile;
-	string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
-	string projectDir = Path.GetDirectoryName(templateFile);	
+    var templateFile = Host.TemplateFile;
+    string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
+    string projectDir = Path.GetDirectoryName(templateFile);	
 
-	var files = Directory
-				.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories)
-				.Where(x => !x.Contains(@"\bin\"));
+    var files = Directory
+                .GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories)
+                .Where(x => !x.Contains(@"\bin\"));
 
-	int total = 0;
-	int skipped = 0;
+    int total = 0;
+    int skipped = 0;
 
-	foreach(string fullFilename in files)
-	{
-		total = total + 1;
+    foreach(string fullFilename in files)
+    {
+        total = total + 1;
 
-		string relativeFileName = @"\" + fullFilename.Substring(solutionDir.Length);
+        string relativeFileName = @"\" + fullFilename.Substring(solutionDir.Length);
 
-		string scriptsPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".cs");
-		string designerPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".repx.cs");
+        string scriptsPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".cs");
+        string designerPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".repx.cs");
 
-		string repxChecksum = new ChecksumCalculator(fullFilename).Get();
-		string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
+        string repxChecksum = new ChecksumCalculator(fullFilename).Get();
+        string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
 
-		bool preserveExisting = repxChecksum == lastChecksum;
-		if (preserveExisting)
-			skipped = skipped + 1;
+        bool preserveExisting = repxChecksum == lastChecksum;
+        if (preserveExisting)
+            skipped = skipped + 1;
 
-		var reader = new XtraReportReader(solutionDir, relativeFileName);
-		var uniqueIdentifierProvider = new UniqueIdentifierProvider(relativeFileName);
+        var reader = new XtraReportReader(solutionDir, relativeFileName);
+        var uniqueIdentifierProvider = new UniqueIdentifierProvider(relativeFileName);
 
-		var scriptsPartTemplate = new ScriptsPartTemplate(reader, uniqueIdentifierProvider);
-		scriptsPartTemplate.Checksum = repxChecksum;
-		if (preserveExisting)
-			scriptsPartTemplate.ExistingFile = scriptsPartOutputFilename;
-		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
+        var scriptsPartTemplate = new ScriptsPartTemplate(reader, uniqueIdentifierProvider);
+        scriptsPartTemplate.Checksum = repxChecksum;
+        if (preserveExisting)
+            scriptsPartTemplate.ExistingFile = scriptsPartOutputFilename;
+        scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 
-		var designerPartTemplate = new DesignerPartTemplate(reader, uniqueIdentifierProvider);
-		if (preserveExisting)
-			designerPartTemplate.ExistingFile = designerPartOutputFilename;	
-		// T4Toolbox 11.7.0.0 doesn't support nested files very well.
-		designerPartTemplate.Output.Metadata["DependentUpon"] = Path.GetFileName(scriptsPartOutputFilename);
-		designerPartTemplate.RenderToFile(designerPartOutputFilename);
-	}
+        var designerPartTemplate = new DesignerPartTemplate(reader, uniqueIdentifierProvider);
+        if (preserveExisting)
+            designerPartTemplate.ExistingFile = designerPartOutputFilename;	
+        // T4Toolbox 11.7.0.0 doesn't support nested files very well.
+        designerPartTemplate.Output.Metadata["DependentUpon"] = Path.GetFileName(scriptsPartOutputFilename);
+        designerPartTemplate.RenderToFile(designerPartOutputFilename);
+    }
 
-	WriteLine(string.Format("{0,-60}:{1, 3}", "Total reports found", total));
-	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
-	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "Total reports found", total));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 
-	stopwatch.Stop();
+    stopwatch.Stop();
 
-	Console.Beep();
+    Console.Beep();
 
-	// Write result
-	WriteLine("");
-	WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
+    // Write result
+    WriteLine("");
+    WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
 #>
 
 <#+
@@ -84,49 +84,49 @@
     {
         public XtraReportTemplateBase(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider)
         {
-			Reader = reader;
-			UniqueIdentifierProvider = uniqueIdentifierProvider;
-		}
+            Reader = reader;
+            UniqueIdentifierProvider = uniqueIdentifierProvider;
+        }
 
-		public XtraReportReader Reader { get; private set; }
-		public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
-		public string ExistingFile { get; set; }
+        public XtraReportReader Reader { get; private set; }
+        public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
+        public string ExistingFile { get; set; }
     }
 
     public class DesignerPartTemplate : XtraReportTemplateBase
     {
-	public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
+    public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
         public override string TransformText()
         {
-			if (ExistingFile != null)
-				if (File.Exists(ExistingFile))
-					return File.ReadAllText(ExistingFile);
+            if (ExistingFile != null)
+                if (File.Exists(ExistingFile))
+                    return File.ReadAllText(ExistingFile);
 
-		    var mainPartFactory = new XtraReportDesignerPartFactory(Reader, UniqueIdentifierProvider);
-			string code = mainPartFactory.GetMainCode();
-			WriteLine(code);
+            var mainPartFactory = new XtraReportDesignerPartFactory(Reader, UniqueIdentifierProvider);
+            string code = mainPartFactory.GetMainCode();
+            WriteLine(code);
 
-			return this.GenerationEnvironment.ToString();
-		}
+            return this.GenerationEnvironment.ToString();
+        }
     }
 
     public class ScriptsPartTemplate : XtraReportTemplateBase
     {
-	public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
+    public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
-	public string Checksum { get; set; }
+    public string Checksum { get; set; }
 
         public override string TransformText()
         {
-			if (ExistingFile != null)
-				return File.ReadAllText(ExistingFile);
-	
-			this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
-		        var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
-			var code = mainPartFactory.GetScriptsCode();
-			WriteLine(code);
-			return this.GenerationEnvironment.ToString();
-		}
+            if (ExistingFile != null)
+                return File.ReadAllText(ExistingFile);
+    
+            this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
+                var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
+            var code = mainPartFactory.GetScriptsCode();
+            WriteLine(code);
+            return this.GenerationEnvironment.ToString();
+        }
     }
 #>
