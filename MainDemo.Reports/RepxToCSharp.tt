@@ -1,9 +1,5 @@
 <#@ template language="C#" debug="True" #>
 <#@ output extension="txt" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Text" #>
-<#@ import namespace="System.Collections.Generic" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Drawing.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v12.2.dll"#>
@@ -11,33 +7,40 @@
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Printing.v12.2.Core.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.XtraReports.v12.2.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\MainDemo.Reports.dll"#>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="DevExpress.ExpressApp.Reports" #>
 <#@ import namespace="MainDemo.Reports" #>
 <#@ assembly name="T4Toolbox.dll"#>
 <#@ include file="T4Toolbox.tt" #>
 <#
+	Stopwatch stopwatch = new Stopwatch();
+	stopwatch.Start();
+	
+	Console.Beep();
+
+	var templateFile = Host.TemplateFile;
 	string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
+	string projectDir = Path.GetDirectoryName(templateFile);	
+
 	var files = Directory
 				.GetFiles(solutionDir, "*.repx", SearchOption.AllDirectories)
 				.Where(x => !x.Contains(@"\bin\"));
 
 	int total = 0;
 	int skipped = 0;
+
 	foreach(string fullFilename in files)
 	{
 		total = total + 1;
 
-		var templateFile = Host.TemplateFile;
-		
-		string projectDirectoryName = Path.GetDirectoryName(templateFile);
-		string solutionDirectoryName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(templateFile), ".."));
 		string relativeFileName = @"\" + fullFilename.Substring(solutionDir.Length);
 
-		var reader = new XtraReportReader(solutionDirectoryName, relativeFileName);
-		
-		string scriptsPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, ".cs");
-		string mainPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, "Designer.cs");
-		string resxPartOutputFilename = projectDirectoryName + Path.ChangeExtension(relativeFileName, ".resx");
+		string scriptsPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".cs");
+		string designerPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".repx.cs");
 
 		string repxChecksum = new ChecksumCalculator(fullFilename).Get();
 		string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
@@ -46,72 +49,84 @@
 		if (preserveExisting)
 			skipped = skipped + 1;
 
-     	var scriptsPartTemplate = new ScriptsPartTemplate(reader);
-		scriptsPartTemplate.Checksum = repxChecksum;
-		scriptsPartTemplate.Output.PreserveExistingFile = preserveExisting;
-		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
-	
-		var mainPartTemplate = new DesignerPartTemplate(reader);
-		mainPartTemplate.Output.PreserveExistingFile = preserveExisting;
-		mainPartTemplate.RenderToFile(mainPartOutputFilename);
+		var reader = new XtraReportReader(solutionDir, relativeFileName);
+		var uniqueIdentifierProvider = new UniqueIdentifierProvider(relativeFileName);
 
-		var resxPartTemplate = new ResxPartTemplate();
-		resxPartTemplate.Output.PreserveExistingFile = preserveExisting;
-		resxPartTemplate.RenderToFile(resxPartOutputFilename);
+		var scriptsPartTemplate = new ScriptsPartTemplate(reader, uniqueIdentifierProvider);
+		scriptsPartTemplate.Checksum = repxChecksum;
+		if (preserveExisting)
+			scriptsPartTemplate.ExistingFile = scriptsPartOutputFilename;
+		scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
+
+		var designerPartTemplate = new DesignerPartTemplate(reader, uniqueIdentifierProvider);
+		if (preserveExisting)
+			designerPartTemplate.ExistingFile = designerPartOutputFilename;	
+		// T4Toolbox 11.7.0.0 doesn't support nested files very well.
+		designerPartTemplate.Output.Metadata["DependentUpon"] = Path.GetFileName(scriptsPartOutputFilename);
+		designerPartTemplate.RenderToFile(designerPartOutputFilename);
 	}
 
 	WriteLine(string.Format("{0,-60}:{1, 3}", "Total reports found", total));
 	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
 	WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
+
+	stopwatch.Stop();
+
+	Console.Beep();
+
+	// Write result
+	WriteLine("");
+	WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
 #>
 
 <#+
     public abstract class XtraReportTemplateBase : T4Toolbox.Template
     {
-		public XtraReportTemplateBase(XtraReportReader reader)
+        public XtraReportTemplateBase(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider)
         {
 			Reader = reader;
+			UniqueIdentifierProvider = uniqueIdentifierProvider;
 		}
 
 		public XtraReportReader Reader { get; private set; }
+		public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
+		public string ExistingFile { get; set; }
     }
 
     public class DesignerPartTemplate : XtraReportTemplateBase
     {
-		public DesignerPartTemplate(XtraReportReader reader) : base(reader) {}
+	public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
         public override string TransformText()
-        {		
-			this.PushIndent("    ");
-		        var mainPartFactory = new XtraReportDesignerPartFactory(Reader);
-				WriteLine(mainPartFactory.GetMainCode());
-			this.PopIndent();
+        {
+			if (ExistingFile != null)
+				if (File.Exists(ExistingFile))
+					return File.ReadAllText(ExistingFile);
+
+		    var mainPartFactory = new XtraReportDesignerPartFactory(Reader, UniqueIdentifierProvider);
+			string code = mainPartFactory.GetMainCode();
+			WriteLine(code);
+
 			return this.GenerationEnvironment.ToString();
 		}
     }
 
     public class ScriptsPartTemplate : XtraReportTemplateBase
     {
-		public ScriptsPartTemplate(XtraReportReader reader) : base(reader) {}
+	public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
-		public string Checksum { get; set; }
+	public string Checksum { get; set; }
 
         public override string TransformText()
-        {		
+        {
+			if (ExistingFile != null)
+				return File.ReadAllText(ExistingFile);
+	
 			this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
-			this.PushIndent("    ");
-		        var mainPartFactory = new XtraReportScriptsPartFactory(Reader);
-				WriteLine(mainPartFactory.GetScriptsCode());
-			this.PopIndent();
+		        var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
+			var code = mainPartFactory.GetScriptsCode();
+			WriteLine(code);
 			return this.GenerationEnvironment.ToString();
-		}
-    }
-
-    public class ResxPartTemplate : T4Toolbox.Template
-    {
-        public override string TransformText()
-        {		
-			return new XtraReportResourceFactory().GetResxContents();
 		}
     }
 #>

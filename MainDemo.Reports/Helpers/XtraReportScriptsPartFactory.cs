@@ -7,28 +7,24 @@ namespace MainDemo.Reports
 {
     public class XtraReportScriptsPartFactory
     {
-        public XtraReportScriptsPartFactory(XtraReportReader reader)
+        public XtraReportScriptsPartFactory(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider)
         {
             if (reader == null)
                 throw new ArgumentNullException("reader");
+            if (uniqueIdentifierProvider == null)
+                throw new ArgumentNullException("uniqueIdentifierProvider");
 
             Contents = reader.Contents;
             ScriptExtractor = new XtraReportScriptExtractor(new XtraReportLoader(new XtraReport(), reader.FullRepxFileName));
-            NameSpace = new UniqueIdentifierProvider(reader.RelativeRepxFileName).NameSpace;
+            
+            NameSpace = uniqueIdentifierProvider.NameSpace;
+            ClassName = uniqueIdentifierProvider.ClassName;
         }
 
         private string NameSpace { get; set; }
+        private string ClassName { get; set; }
         private string Contents { get; set; }
         private XtraReportScriptExtractor ScriptExtractor { get; set; }        
-
-        private string GetReportName()
-        {
-            int indexOfName = Contents.IndexOf(@"public class ");
-            string result = Contents;
-            result = result.Substring(indexOfName + @"public class ".Length);
-            result = result.Substring(0, result.IndexOf(":")).Trim();
-            return result;
-        }
 
         private string GetScriptSection()
         {
@@ -47,9 +43,10 @@ namespace MainDemo.Reports
             var parser = new XtraReportScriptParser();
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("");
-            sb.AppendLine("namespace MainDemo.Reports." + NameSpace + " {");
             sb.AppendLine(parser.CollectUsingReferences(scriptSection));
-            sb.AppendLine("    public partial class " + GetReportName());
+            sb.AppendLine();
+            sb.AppendLine("namespace " + NamespaceHelper.Get() + "." + NameSpace + " {");
+            sb.AppendLine("    public partial class " + ClassName);
             sb.AppendLine("    {");
             sb.AppendLine(parser.RemoveUsingReferences(scriptSection));
             sb.AppendLine("    }");

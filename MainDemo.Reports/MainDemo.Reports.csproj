@@ -56,21 +56,14 @@
   <ItemGroup>
     <Compile Include="Helpers\ChecksumCalculator.cs" />
     <Compile Include="Helpers\ChecksumExtractor.cs" />
+    <Compile Include="Helpers\NamespaceHelper.cs" />
     <Compile Include="Helpers\XtraReportLoader.cs" />
     <Compile Include="Helpers\XtraReportReader.cs" />
     <Compile Include="Helpers\XtraReportScriptExtractor.cs" />
-    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.Designer.cs">
-      <DependentUpon>ContactsGroupedByPosition.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainDemo.Module\EmbeddedReports\TasksStateReport.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MainDemo.Module\EmbeddedReports\TasksStateReport.Designer.cs">
-      <DependentUpon>TasksStateReport.cs</DependentUpon>
-    </Compile>
+    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs" />
+    <Compile Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.repx.cs" />
+    <Compile Include="MainDemo.Module\EmbeddedReports\TasksStateReport.cs" />
+    <Compile Include="MainDemo.Module\EmbeddedReports\TasksStateReport.repx.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\XtraReportScriptsPartFactory.cs" />
     <Compile Include="Helpers\UniqueIdentifierProvider.cs" />
@@ -81,18 +74,18 @@
     <None Include="RepxToCSharp.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RepxToCSharp.txt</LastGenOutput>
+      <LastOutputs>
+.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.cs
+.\MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.repx.cs
+.\MainDemo.Module\EmbeddedReports\TasksStateReport.cs
+.\MainDemo.Module\EmbeddedReports\TasksStateReport.repx.cs
+</LastOutputs>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainDemo.Module\EmbeddedReports\ContactsGroupedByPosition.resx">
-      <DependentUpon>ContactsGroupedByPosition.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainDemo.Module\EmbeddedReports\TasksStateReport.resx">
-      <DependentUpon>TasksStateReport.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResxTemplate.xml" />
     <Content Include="RepxToCSharp.txt">
       <AutoGen>True</AutoGen>

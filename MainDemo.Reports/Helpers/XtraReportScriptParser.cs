@@ -21,11 +21,10 @@ namespace MainDemo.Reports
             if (scriptsSource == null)
                 return null;
 
-            return String.Join("\n",
-                            scriptsSource.Split('\n')
+            return String.Join(Environment.NewLine,
+                            scriptsSource.Split(new string[]{ Environment.NewLine }, StringSplitOptions.None)
                               .Where(line => IsUsing(line))
-                              .ToArray()
-                        ).Trim() + Environment.NewLine;
+                        );
         }
 
         public string RemoveUsingReferences(string scriptsSource)
@@ -33,22 +32,21 @@ namespace MainDemo.Reports
             if (scriptsSource == null)
                 return null;
 
-            return String.Join("\n",
-                            scriptsSource.Split('\n')
+            return String.Join(Environment.NewLine,
+                            scriptsSource.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
                             .Where(line => !IsUsing(line))
-                            .ToArray()
-                          ).Trim() + Environment.NewLine;
+                            .Select(line => String.Concat(new String(' ', 8), line))
+                          );
         }
 
         public string RemoveIgnoredSections(string fullSourceCode)
         {
-            return String.Join("\n",
-                            fullSourceCode.Split('\n')
+            return String.Join(Environment.NewLine,
+                            fullSourceCode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
                                 .SkipWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.StartMarker))
                                 .Skip(1)
                                 .TakeWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.EndMarker))
-                                .ToArray()
-                            ).Trim() + Environment.NewLine;
+                            );
         }
     }
 }

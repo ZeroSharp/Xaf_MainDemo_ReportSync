@@ -2,3 +2,5 @@
   Total reports generated                                   :  0
   Total reports skipped because unchanged                   :  2
 
+Time elapsed: 00:00:00.2295390
+
