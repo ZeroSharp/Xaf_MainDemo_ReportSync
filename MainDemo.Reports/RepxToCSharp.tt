@@ -20,8 +20,6 @@
     Stopwatch stopwatch = new Stopwatch();
     stopwatch.Start();
     
-    Console.Beep();
-
     var templateFile = Host.TemplateFile;
     string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
     string projectDir = Path.GetDirectoryName(templateFile);	
@@ -62,17 +60,23 @@
         if (preserveExisting)
             designerPartTemplate.ExistingFile = designerPartOutputFilename;	
         // T4Toolbox 11.7.0.0 doesn't support nested files very well.
-        designerPartTemplate.Output.Metadata["DependentUpon"] = Path.GetFileName(scriptsPartOutputFilename);
+        // Adding DependentUpon metadata creates a correct csproj file, but:
+        // - it adds a big overhead when there are a lot of reports to transform
+        // - the nested files are only visible when the project is reloaded   
+        // Commented out for the time-being.
+        //designerPartTemplate.Output.Metadata["DependentUpon"] = Path.GetFileName(scriptsPartOutputFilename);
         designerPartTemplate.RenderToFile(designerPartOutputFilename);
     }
 
-    WriteLine(string.Format("{0,-60}:{1, 3}", "Total reports found", total));
+	WriteLine("(This is an automatically generated file which should be excluded from version control)");
+	WriteLine("");
+	WriteLine("Summary of process repx files");
+	WriteLine("=============================");
+    WriteLine(string.Format("{0,-60}:{1, 3}", "Total repx files found", total));
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 
     stopwatch.Stop();
-
-    Console.Beep();
 
     // Write result
     WriteLine("");
