@@ -16,9 +16,7 @@ namespace MainDemo.Reports
             if (!File.Exists(repxFileName))
                 throw new IOException(String.Format("File {0} was not found.", repxFileName));
 
-            //Report = report;
             Report = XtraReport.FromFile(repxFileName, true);
-            //Report.LoadLayout(repxFileName);
         }
 
         public XtraReport Report { get; private set; }
