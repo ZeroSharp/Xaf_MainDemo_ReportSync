@@ -41,18 +41,36 @@
         string scriptsPartOutputFilename = fullFilename.Replace(".repx.cs", ".cs");
         string designerPartOutputFilename = fullFilename;
 
-        string repxFilename = Path.GetFullPath(solutionDir.TrimEnd(Path.DirectorySeparatorChar) + Path.ChangeExtension(relativeFileName, ""));
-        if (!File.Exists(repxFilename))
+		string scriptsChecksum = ChecksumCalculator.Get(File.ReadAllText(scriptsPartOutputFilename));
+        string lastChecksum = ChecksumExtractor.Get(fullFilename);
+
+        bool preserveExisting = scriptsChecksum == lastChecksum;
+        if (preserveExisting)
+            skipped = skipped + 1;
+		else
         {
-            Warning(String.Format("Could not find repx file {0} while transforming CSharpToRepx.", repxFilename));
-            missing = missing + 1;
-        }
-        else
-        {
-            var injector = new XtraReportScriptInjector(repxFilename);
-            string scriptSource = File.ReadAllText(scriptsPartOutputFilename);
-            injector.InjectScripts(scriptSource, repxFilename, replaceOriginal: true);
-        }
+			string repxFilename = Path.GetFullPath(solutionDir.TrimEnd(Path.DirectorySeparatorChar) + Path.ChangeExtension(relativeFileName, ""));
+			if (!File.Exists(repxFilename))
+			{
+				Warning(String.Format("Could not find repx file {0} while transforming CSharpToRepx.", repxFilename));
+				missing = missing + 1;
+			}
+			else
+			{
+				var injector = new XtraReportScriptInjector(repxFilename);
+				string scriptSource = File.ReadAllText(scriptsPartOutputFilename);
+				injector.InjectScripts(scriptSource, repxFilename, replaceOriginal: true);
+
+				// fix checksum in designer part
+				var lines = File
+					.ReadAllLines(designerPartOutputFilename);
+				if (lines[0].StartsWith(ChecksumParser.ChecksumPrefix))
+                {
+					lines[0] = ChecksumParser.ChecksumPrefix + ChecksumCalculator.Get(scriptSource);
+					File.WriteAllLines(designerPartOutputFilename, lines);
+                }
+			}
+		}
     }
 
     WriteLine("(This is an automatically generated file which should be excluded from version control)");

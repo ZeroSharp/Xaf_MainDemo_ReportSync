@@ -3,8 +3,8 @@
 Summary of process repx files
 =============================
 Total C# files found                                        :  2
-  Total reports injected                                    :  2
+  Total reports injected                                    :  0
   Total reports missing                                     :  0
-  Total reports skipped because unchanged                   :  0
+  Total reports skipped because unchanged                   :  2
 
-Time elapsed: 00:00:00.2717899
+Time elapsed: 00:00:00.0029287

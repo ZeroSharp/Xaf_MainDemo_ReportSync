@@ -72,6 +72,7 @@
     <Compile Include="Helpers\AssertReportScriptsEx.cs" />
     <Compile Include="Helpers\ChecksumCalculator.cs" />
     <Compile Include="Helpers\ChecksumExtractor.cs" />
+    <Compile Include="Helpers\ChecksumParser.cs" />
     <Compile Include="Helpers\NamespaceHelper.cs" />
     <Compile Include="Helpers\XtraReportScriptInjector.cs" />
     <Compile Include="Helpers\XtraReportLoader.cs" />

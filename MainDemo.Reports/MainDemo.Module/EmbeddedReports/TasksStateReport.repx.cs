@@ -1,4 +1,5 @@
-﻿/// <XRTypeInfo>
+﻿// Checksum:74CFDB7AE1AEC4B0FF20152721C97D8B
+/// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
 ///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.ExpressApp.Reports.XafReport</TypeName>
@@ -110,24 +111,24 @@ partial class _TasksStateReport : DevExpress.ExpressApp.Reports.XafReport {
                         "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAHAAAAAAAAAFBBRFBBRFAFQIOWS" +
                         "F5ywcZ0uN7j8d/grBNR4gGHaUXVHBt5VgAAAAAAAACOAAAAZwAAAPQAAAArAAAAvwAAAPkBAAAmJAB0A" +
                         "GgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQ" +
-                        "wBsAGEAcwBzAE4AYQBtAGUAaAIAAAxGAGkAbAB0AGUAcgBpAgAAIkYAaQBsAHQAZQByAEQAZQBzAGMAc" +
-                        "gBpAHAAdABpAG8AbgCbAgAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlA" +
-                        "HcA9wIAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQA0AwAAF" +
-                        "FIAZQBwAG8AcgB0AE4AYQBtAGUANQMAAAHlBA0KDQogICAgICAgIA0KICAgICAgICANCiAgICAgICAgI" +
-                        "CAgICAgICANCiAgICAgICAgICAgICAgICBwcml2YXRlIHZvaWQgeHJMYWJlbDFfQmVmb3JlUHJpbnQob" +
-                        "2JqZWN0IHNlbmRlciwgU3lzdGVtLkRyYXdpbmcuUHJpbnRpbmcuUHJpbnRFdmVudEFyZ3MgZSkgew0KI" +
-                        "CAgICAgICAgICAgICAgICAgICAvLyBUaGlzIGlzIGEgdGVzdA0KICAgICAgICAgICAgICAgICAgICB4c" +
-                        "kxhYmVsMS5UZXh0ID0gIkhlbGxvIjsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgD" +
-                        "QogICAgICAgICAgICAgICAgcHJpdmF0ZSB2b2lkIHhyTGFiZWwyX0JlZm9yZVByaW50KG9iamVjdCBzZ" +
-                        "W5kZXIsIFN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlByaW50RXZlbnRBcmdzIGUpIHsNCiAgICAgICAgI" +
-                        "CAgICAgICAgICAgeHJMYWJlbDIuVGV4dCA9IEdldExhYmVsMlRleHQoKTsNCiAgICAgICAgICAgICAgI" +
-                        "CB9DQogICAgICAgICAgICAgICAgDQogICAgICAgICAgICAgICAgcHVibGljIHN0cmluZyBHZXRMYWJlb" +
-                        "DJUZXh0KCkNCiAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgCXJldHVybiAiTGFiZWwgM" +
-                        "iEiOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAAATBbQXNzaWduZWRUb10gPSA/I" +
-                        "EFuZCBbRHVlRGF0ZV0gPD0gJ0BDdXJyZW50RGF0ZScBWlNwZWNpZnkgYSBjb250YWN0IHRvIGdlbmVyY" +
-                        "XRlIGEgcmVwb3J0IG9uIGhpcy9oZXIgdGFzayBzdGF0ZSBwbGFubmVkIGZvciB0aGUgY3VycmVudCBkY" +
-                        "XRlLgE7W0Fzc2lnbmVkVG9dID0gW0Fzc2lnbmVkVG9dIEFuZCBbRHVlRGF0ZV0gPD0gJ0BDdXJyZW50R" +
-                        "GF0ZScAARBUYXNrc1N0YXRlUmVwb3J0";
+                        "wBsAGEAcwBzAE4AYQBtAGUAWAIAAAxGAGkAbAB0AGUAcgBZAgAAIkYAaQBsAHQAZQByAEQAZQBzAGMAc" +
+                        "gBpAHAAdABpAG8AbgCLAgAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlA" +
+                        "HcA5wIAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQAkAwAAF" +
+                        "FIAZQBwAG8AcgB0AE4AYQBtAGUAJQMAAAHVBA0KDQogICAgICAgIHByaXZhdGUgdm9pZCB4ckxhYmVsM" +
+                        "V9CZWZvcmVQcmludChvYmplY3Qgc2VuZGVyLCBTeXN0ZW0uRHJhd2luZy5QcmludGluZy5QcmludEV2Z" +
+                        "W50QXJncyBlKSB7ICAgICAgIA0KICAgICAgICAgICAgLy8gVGhpcyBpcyBhIHRlc3QgICAgICAgIA0KI" +
+                        "CAgICAgICAgICAgeHJMYWJlbDEuVGV4dCA9ICJIZWxsbyI7ICAgICAgICANCiAgICAgICAgfSAgICAgI" +
+                        "CAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICANCiAgICAgICAgDQogICAgICAgIHByaXZhd" +
+                        "GUgdm9pZCB4ckxhYmVsMl9CZWZvcmVQcmludChvYmplY3Qgc2VuZGVyLCBTeXN0ZW0uRHJhd2luZy5Qc" +
+                        "mludGluZy5QcmludEV2ZW50QXJncyBlKSB7ICAgICAgICANCiAgICAgICAgICAgIHhyTGFiZWwyLlRle" +
+                        "HQgPSBHZXRMYWJlbDJUZXh0KCk7ICAgICAgICANCiAgICAgICAgfSAgICAgICAgICAgICAgICAgICAgI" +
+                        "CAgICAgICAgICAgICAgICAgIA0KICAgICAgICANCiAgICAgICAgcHVibGljIHN0cmluZyBHZXRMYWJlb" +
+                        "DJUZXh0KCkgICAgICAgIA0KICAgICAgICB7ICAgICAgIA0KICAgICAgICAgICAgcmV0dXJuICJMYWJlb" +
+                        "CAyISI7ICAgICAgICANCiAgICAgICAgfQABMFtBc3NpZ25lZFRvXSA9ID8gQW5kIFtEdWVEYXRlXSA8P" +
+                        "SAnQEN1cnJlbnREYXRlJwFaU3BlY2lmeSBhIGNvbnRhY3QgdG8gZ2VuZXJhdGUgYSByZXBvcnQgb24ga" +
+                        "GlzL2hlciB0YXNrIHN0YXRlIHBsYW5uZWQgZm9yIHRoZSBjdXJyZW50IGRhdGUuATtbQXNzaWduZWRUb" +
+                        "10gPSBbQXNzaWduZWRUb10gQW5kIFtEdWVEYXRlXSA8PSAnQEN1cnJlbnREYXRlJwABEFRhc2tzU3Rhd" +
+                        "GVSZXBvcnQ=";
                     this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
                 }
                 return this._resources;

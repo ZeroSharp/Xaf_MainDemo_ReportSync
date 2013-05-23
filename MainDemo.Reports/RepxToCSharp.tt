@@ -41,7 +41,7 @@
         string scriptsPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".cs");
         string designerPartOutputFilename = projectDir + Path.ChangeExtension(relativeFileName, ".repx.cs");
 
-        string repxChecksum = new ChecksumCalculator(fullFilename).Get();
+        string repxChecksum = ChecksumCalculator.Get(File.ReadAllText(fullFilename));
         string lastChecksum = ChecksumExtractor.Get(scriptsPartOutputFilename);
 
         bool preserveExisting = repxChecksum == lastChecksum;
@@ -52,12 +52,13 @@
         var uniqueIdentifierProvider = new UniqueIdentifierProvider(relativeFileName);
 
         var scriptsPartTemplate = new ScriptsPartTemplate(reader, uniqueIdentifierProvider);
-        scriptsPartTemplate.Checksum = repxChecksum;
+        scriptsPartTemplate.GenerateChecksum = () => repxChecksum;
         if (preserveExisting)
             scriptsPartTemplate.ExistingFile = scriptsPartOutputFilename;
         scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 
         var designerPartTemplate = new DesignerPartTemplate(reader, uniqueIdentifierProvider);
+		designerPartTemplate.GenerateChecksum = () => scriptsPartTemplate.ScriptsChecksum;
         if (preserveExisting)
             designerPartTemplate.ExistingFile = designerPartOutputFilename;	
         // T4Toolbox 11.7.0.0 doesn't support nested files very well.
@@ -93,7 +94,8 @@
             Reader = reader;
             UniqueIdentifierProvider = uniqueIdentifierProvider;
         }
-
+		
+		public Func<string> GenerateChecksum { get; set; }
         public XtraReportReader Reader { get; private set; }
         public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
         public string ExistingFile { get; set; }
@@ -101,7 +103,7 @@
 
     public class DesignerPartTemplate : XtraReportTemplateBase
     {
-    public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
+        public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
         public override string TransformText()
         {
@@ -109,6 +111,7 @@
                 if (File.Exists(ExistingFile))
                     return File.ReadAllText(ExistingFile);
 
+            this.WriteLine(ChecksumParser.ChecksumPrefix + GenerateChecksum());
             var mainPartFactory = new XtraReportDesignerPartFactory(Reader, UniqueIdentifierProvider);
             string code = mainPartFactory.GetMainCode();
             WriteLine(code);
@@ -119,19 +122,22 @@
 
     public class ScriptsPartTemplate : XtraReportTemplateBase
     {
-    public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
+    	public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
-    public string Checksum { get; set; }
+		public string ScriptsChecksum { get; private set; }
 
         public override string TransformText()
         {
             if (ExistingFile != null)
                 return File.ReadAllText(ExistingFile);
-    
-            this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
-                var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
+			
+            this.WriteLine(ChecksumParser.ChecksumPrefix + GenerateChecksum());
+            var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
             var code = mainPartFactory.GetScriptsCode();
             WriteLine(code);
+
+			ScriptsChecksum = ChecksumCalculator.Get(this.GenerationEnvironment.ToString());
+
             return this.GenerationEnvironment.ToString();
         }
     }

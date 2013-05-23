@@ -1,31 +1,21 @@
 using System;
 using System.Linq;
-using System.Text;
 using System.Security.Cryptography;
-using System.IO;
+using System.Text;
 
 namespace MainDemo.Reports
 {
-    public class ChecksumCalculator
+    public static class ChecksumCalculator
     {
-        public const string ChecksumPrefix = "// Checksum:";
-
-        public ChecksumCalculator(string repxFileName)
+        public static string Get(string content)
         {
-            if (!File.Exists(repxFileName))
-                throw new IOException(String.Format("File {0} does not exist", repxFileName));
+            var parser = new ChecksumParser();
+            string parsedContent = parser.RemoveChecksums(content);
 
-            Contents = File.ReadAllText(repxFileName);           
-        }
-
-        private string Contents { get; set; }
-
-        public string Get()
-        {
             string hash;
             using (MD5 md5 = MD5.Create())
             {
-                byte[] md5ComputeHash = md5.ComputeHash(Encoding.UTF8.GetBytes(Contents));
+                byte[] md5ComputeHash = md5.ComputeHash(Encoding.UTF8.GetBytes(parsedContent));
                 hash = BitConverter.ToString(md5ComputeHash).Replace("-", String.Empty);
             }
             return hash;

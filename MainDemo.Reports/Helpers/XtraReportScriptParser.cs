@@ -23,7 +23,7 @@ namespace MainDemo.Reports
                 return null;
 
             return String.Join(Environment.NewLine,
-                            scriptsSource.Split(new string[]{ Environment.NewLine }, StringSplitOptions.None)
+                            scriptsSource.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                               .Where(line => IsUsing(line))
                         );
         }
@@ -34,7 +34,7 @@ namespace MainDemo.Reports
                 return null;
 
             return String.Join(Environment.NewLine,
-                            scriptsSource.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+                            scriptsSource.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
                             .Where(line => !IsUsing(line))
                             .Select(line => String.Concat(new String(' ', 8), line))
                           );
@@ -42,12 +42,28 @@ namespace MainDemo.Reports
 
         public string RemoveIgnoredSections(string fullSourceCode)
         {
+            if (fullSourceCode == null)
+                return null;
+
             return String.Join(Environment.NewLine,
-                            fullSourceCode.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+                            fullSourceCode.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                                 .SkipWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.StartMarker))
                                 .Skip(1)
                                 .TakeWhile(line => !line.Trim().StartsWith(XtraReportSyncMarkers.EndMarker))
                             );
+        }
+
+        public string MaximumUnindent(string fullSourceCode)
+        {
+            if (fullSourceCode == null)
+                return null;
+
+            string[] code = fullSourceCode
+                                .Replace("\t", "    ")
+                                .Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);            
+            var minIndent = code.Select(line => line.TakeWhile(ch => Char.IsWhiteSpace(ch)).Count()).Min();
+            var formatted = code.Select(line => line.Remove(0, minIndent));
+            return String.Join(Environment.NewLine, formatted);
         }
     }
 }

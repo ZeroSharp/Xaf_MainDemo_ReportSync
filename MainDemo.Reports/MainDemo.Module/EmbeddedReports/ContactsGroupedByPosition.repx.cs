@@ -1,4 +1,5 @@
-﻿/// <XRTypeInfo>
+// Checksum:3D89800125A4DD52368241A24F42B5CF
+/// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
 ///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.ExpressApp.Reports.XafReport</TypeName>
@@ -106,7 +107,7 @@ partial class _ContactsGroupedByPosition : DevExpress.ExpressApp.Reports.XafRepo
         private System.Resources.ResourceManager resources {
             get {
                 if (_resources == null) {
-                    string resourceString = @"zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAHAAAAAAAAAFBBRFBBRFAFQIOWSF5ywcZ0uN7j8d/grBNR4gGHaUXVHBt5VgAAAAAAAACOAAAAZwAAAPQAAAArAAAAvwAAAPkBAAAmJAB0AGgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQwBsAGEAcwBzAE4AYQBtAGUA/gAAAAxGAGkAbAB0AGUAcgD/AAAAIkYAaQBsAHQAZQByAEQAZQBzAGMAcgBpAHAAdABpAG8AbgABAQAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlAHcAAwEAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQAFAQAAFFIAZQBwAG8AcgB0AE4AYQBtAGUABgEAAAH7AQ0KDQogICAgICAgIA0KICAgICAgICANCiAgICAgICAgICAgICAgICANCiAgICAgICAgICAgICAgICBwcml2YXRlIHZvaWQgeHJMYWJlbDRfQmVmb3JlUHJpbnQob2JqZWN0IHNlbmRlciwgU3lzdGVtLkRyYXdpbmcuUHJpbnRpbmcuUHJpbnRFdmVudEFyZ3MgZSkgew0KICAgICAgICAgICAgICAgIAl4ckxhYmVsNC5UZXh0ID0geHJMYWJlbDQuVGV4dCArICIgUmVwbGFjZWQhIjsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgAAEAAQABAAABGUNvbnRhY3RzR3JvdXBlZEJ5UG9zaXRpb24=";
+                    string resourceString = @"zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAGAAAAAAAAAFBBRFBBRFAFQIOWxnS43uPx3+CsE1HiAYdpRdUcG3krAAAAYwAAADwAAADJAAAAAAAAAJQAAADGAQAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQwBsAGEAcwBzAE4AYQBtAGUAAAAAAAxGAGkAbAB0AGUAcgABAAAAIkYAaQBsAHQAZQByAEQAZQBzAGMAcgBpAHAAdABpAG8AbgADAAAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlAHcABQAAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQAHAAAAFFIAZQBwAG8AcgB0AE4AYQBtAGUACAAAAAABAAEAAQAAARlDb250YWN0c0dyb3VwZWRCeVBvc2l0aW9u";
                     this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
                 }
                 return this._resources;
@@ -218,7 +219,8 @@ partial class _ContactsGroupedByPosition : DevExpress.ExpressApp.Reports.XafRepo
             this.Name = "xafReport1";
             this.PageHeight = 1100;
             this.PageWidth = 850;
-            //this.ScriptsSource = resources.GetString("$this.ScriptsSource");
+            this.ScriptsSource = "\r\n\r\nprivate void xrLabel4_BeforePrint(object sender, System.Drawing.Printing.Prin" +
+                "tEventArgs e) {\r\n    xrLabel4.Text = xrLabel4.Text + \" New2!\";\r\n}";
             this.Version = "12.2";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
         }

@@ -11,11 +11,20 @@ namespace MainDemo.Reports
             if (!File.Exists(file))
                 return null;
 
-            string firstLine = File.ReadLines(file).First();
-            if (!firstLine.Contains(ChecksumCalculator.ChecksumPrefix))
+            string firstLine = ReadFirstLine(file);
+
+            if (!firstLine.Contains(ChecksumParser.ChecksumPrefix))
                 return null;
 
-            return firstLine.Substring(firstLine.IndexOf(ChecksumCalculator.ChecksumPrefix) + ChecksumCalculator.ChecksumPrefix.Length);
+            return firstLine.Substring(firstLine.IndexOf(ChecksumParser.ChecksumPrefix) + ChecksumParser.ChecksumPrefix.Length);
+        }
+
+        private static string ReadFirstLine(string file)
+        {
+            using (StreamReader reader = new StreamReader(file))
+            {
+                return reader.ReadLine();
+            }
         }
     }
 }

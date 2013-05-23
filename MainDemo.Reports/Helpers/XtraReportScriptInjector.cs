@@ -31,6 +31,7 @@ namespace MainDemo.Reports
             XtraReportScriptParser parser = new XtraReportScriptParser();
             string collectedUsingReferences = parser.CollectUsingReferences(fullSourceCode);
             string scriptSource = parser.RemoveIgnoredSections(fullSourceCode);
+            scriptSource = parser.MaximumUnindent(scriptSource);
             scriptSource = Environment.NewLine + collectedUsingReferences + Environment.NewLine + scriptSource;
 
             var temporaryReportFileName = Path.ChangeExtension(Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()), ".repx");

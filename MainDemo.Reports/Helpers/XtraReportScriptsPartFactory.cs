@@ -31,7 +31,8 @@ namespace MainDemo.Reports
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
             sb.AppendLine(XtraReportSyncMarkers.StartMarker);
-            sb.AppendLine(ScriptExtractor.ExtractScripts());
+            var parser = new XtraReportScriptParser();
+            sb.AppendLine(parser.MaximumUnindent(ScriptExtractor.ExtractScripts()));
             sb.AppendLine(XtraReportSyncMarkers.EndMarker);
             sb.AppendLine();
             return sb.ToString();
