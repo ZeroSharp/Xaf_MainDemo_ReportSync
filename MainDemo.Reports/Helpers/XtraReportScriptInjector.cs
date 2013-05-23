@@ -1,8 +1,7 @@
 using System;
+using System.IO;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using System.IO;
-using System.Reflection;
 
 namespace MainDemo.Reports
 {
@@ -22,24 +21,19 @@ namespace MainDemo.Reports
 
         public void InjectScripts(string fullSourceCode, string repxFileName, bool replaceOriginal = false)
         {
-            XtraReportScriptParser parser = new XtraReportScriptParser();
-
-            MethodInfo initializeScriptsMethod = typeof(XtraReport).GetMethod("InitializeScripts", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (initializeScriptsMethod != null)
-                initializeScriptsMethod.Invoke(Report, new object[] { });
-
             if (fullSourceCode == null)
                 throw new ArgumentNullException("fullSourceCode");
             if (!fullSourceCode.Contains(XtraReportSyncMarkers.StartMarker))
                 throw new ArgumentException("fullSourceCode does not contain a valid ScriptSourceStartMarker");
             if (!fullSourceCode.Contains(XtraReportSyncMarkers.EndMarker))
                 throw new ArgumentException("fullSourceCode does not contain a valid ScriptSourceEndMarker");
+
+            XtraReportScriptParser parser = new XtraReportScriptParser();
             string collectedUsingReferences = parser.CollectUsingReferences(fullSourceCode);
             string scriptSource = parser.RemoveIgnoredSections(fullSourceCode);
             scriptSource = Environment.NewLine + collectedUsingReferences + Environment.NewLine + scriptSource;
 
             var temporaryReportFileName = Path.ChangeExtension(Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()), ".repx");
-            File.WriteAllText(@"C:\Unzipped\aaa.cs", scriptSource);
             Report.ScriptsSource = scriptSource;
             try
             {

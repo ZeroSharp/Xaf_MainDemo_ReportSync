@@ -20,6 +20,7 @@
     Stopwatch stopwatch = new Stopwatch();
     stopwatch.Start();
     
+    //Console.Beep();
     var templateFile = Host.TemplateFile;
     string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
     string projectDir = Path.GetDirectoryName(templateFile);	
@@ -77,6 +78,7 @@
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 
     stopwatch.Stop();
+    //Console.Beep();
 
     // Write result
     WriteLine("");

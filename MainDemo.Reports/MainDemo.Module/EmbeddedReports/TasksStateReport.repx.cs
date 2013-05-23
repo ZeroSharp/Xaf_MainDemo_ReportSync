@@ -2,7 +2,7 @@
 ///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
 ///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll</AssemblyLocation>
 ///   <TypeName>DevExpress.ExpressApp.Reports.XafReport</TypeName>
-///   <Localization />
+///   <Localization>en-US</Localization>
 ///   <Version>12.2</Version>
 ///   <References>
 ///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll" />
@@ -20,16 +20,16 @@
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Numerics\v4.0_4.0.0.0__b77a5c561934e089\System.Numerics.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\System.Transactions\v4.0_4.0.0.0__b77a5c561934e089\System.Transactions.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Transactions\v4.0_4.0.0.0__b77a5c561934e089\System.Transactions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Remoting\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Remoting.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Framework\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Framework.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ComponentModel.DataAnnotations\v4.0_4.0.0.0__31bf3856ad364e35\System.ComponentModel.DataAnnotations.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Services\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll" />
@@ -39,7 +39,7 @@
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Deployment\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Deployment.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization.Formatters.Soap\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Serialization.Formatters.Soap.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.Design.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\System.Data.OracleClient\v4.0_4.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data.OracleClient\v4.0_4.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices.Protocols\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.Protocols.dll" />
@@ -55,7 +55,7 @@
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml.Hosting\v4.0_4.0.0.0__31bf3856ad364e35\System.Xaml.Hosting.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activities.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Activities.dll" />
-///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_64\Microsoft.VisualBasic.Activities.Compiler\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.Activities.Compiler.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.VisualBasic.Activities.Compiler\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.Activities.Compiler.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualBasic\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Management\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Management.dll" />
 ///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.JScript\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll" />
@@ -105,7 +105,29 @@ partial class _TasksStateReport : DevExpress.ExpressApp.Reports.XafReport {
         private System.Resources.ResourceManager resources {
             get {
                 if (_resources == null) {
-                    string resourceString = @"zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAHAAAAAAAAAFBBRFBBRFAFQIOWSF5ywcZ0uN7j8d/grBNR4gGHaUXVHBt5VgAAAAAAAACOAAAAZwAAAPQAAAArAAAAvwAAAPkBAAAmJAB0AGgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQwBsAGEAcwBzAE4AYQBtAGUAYAEAAAxGAGkAbAB0AGUAcgCKAQAAIkYAaQBsAHQAZQByAEQAZQBzAGMAcgBpAHAAdABpAG8AbgC8AQAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlAHcAGAIAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQBVAgAAFFIAZQBwAG8AcgB0AE4AYQBtAGUAVgIAAAHdAg0KcHJpdmF0ZSB2b2lkIHhyTGFiZWwxX0JlZm9yZVByaW50KG9iamVjdCBzZW5kZXIsIFN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlByaW50RXZlbnRBcmdzIGUpIHsNCiAgICAvLyBUaGlzIGlzIGEgdGVzdA0KICAgIHhyTGFiZWwxLlRleHQgPSAiSGVsbG8iOw0KfQ0KDQpwcml2YXRlIHZvaWQgeHJMYWJlbDJfQmVmb3JlUHJpbnQob2JqZWN0IHNlbmRlciwgU3lzdGVtLkRyYXdpbmcuUHJpbnRpbmcuUHJpbnRFdmVudEFyZ3MgZSkgew0KICAgIHhyTGFiZWwyLlRleHQgPSBHZXRMYWJlbDJUZXh0KCk7DQp9DQoNCnB1YmxpYyBzdHJpbmcgR2V0TGFiZWwyVGV4dCgpDQp7DQoJcmV0dXJuICJMYWJlbCAyISI7DQp9DQoBKE1haW5EZW1vLk1vZHVsZS5CdXNpbmVzc09iamVjdHMuRGVtb1Rhc2sBMFtBc3NpZ25lZFRvXSA9ID8gQW5kIFtEdWVEYXRlXSA8PSAnQEN1cnJlbnREYXRlJwFaU3BlY2lmeSBhIGNvbnRhY3QgdG8gZ2VuZXJhdGUgYSByZXBvcnQgb24gaGlzL2hlciB0YXNrIHN0YXRlIHBsYW5uZWQgZm9yIHRoZSBjdXJyZW50IGRhdGUuATtbQXNzaWduZWRUb10gPSBbQXNzaWduZWRUb10gQW5kIFtEdWVEYXRlXSA8PSAnQEN1cnJlbnREYXRlJwABEFRhc2tzU3RhdGVSZXBvcnQ=";
+                    string resourceString = "zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJza" +
+                        "W9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4O" +
+                        "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAHAAAAAAAAAFBBRFBBRFAFQIOWS" +
+                        "F5ywcZ0uN7j8d/grBNR4gGHaUXVHBt5VgAAAAAAAACOAAAAZwAAAPQAAAArAAAAvwAAAPkBAAAmJAB0A" +
+                        "GgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQ" +
+                        "wBsAGEAcwBzAE4AYQBtAGUAaAIAAAxGAGkAbAB0AGUAcgBpAgAAIkYAaQBsAHQAZQByAEQAZQBzAGMAc" +
+                        "gBpAHAAdABpAG8AbgCbAgAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlA" +
+                        "HcA9wIAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQA0AwAAF" +
+                        "FIAZQBwAG8AcgB0AE4AYQBtAGUANQMAAAHlBA0KDQogICAgICAgIA0KICAgICAgICANCiAgICAgICAgI" +
+                        "CAgICAgICANCiAgICAgICAgICAgICAgICBwcml2YXRlIHZvaWQgeHJMYWJlbDFfQmVmb3JlUHJpbnQob" +
+                        "2JqZWN0IHNlbmRlciwgU3lzdGVtLkRyYXdpbmcuUHJpbnRpbmcuUHJpbnRFdmVudEFyZ3MgZSkgew0KI" +
+                        "CAgICAgICAgICAgICAgICAgICAvLyBUaGlzIGlzIGEgdGVzdA0KICAgICAgICAgICAgICAgICAgICB4c" +
+                        "kxhYmVsMS5UZXh0ID0gIkhlbGxvIjsNCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgD" +
+                        "QogICAgICAgICAgICAgICAgcHJpdmF0ZSB2b2lkIHhyTGFiZWwyX0JlZm9yZVByaW50KG9iamVjdCBzZ" +
+                        "W5kZXIsIFN5c3RlbS5EcmF3aW5nLlByaW50aW5nLlByaW50RXZlbnRBcmdzIGUpIHsNCiAgICAgICAgI" +
+                        "CAgICAgICAgICAgeHJMYWJlbDIuVGV4dCA9IEdldExhYmVsMlRleHQoKTsNCiAgICAgICAgICAgICAgI" +
+                        "CB9DQogICAgICAgICAgICAgICAgDQogICAgICAgICAgICAgICAgcHVibGljIHN0cmluZyBHZXRMYWJlb" +
+                        "DJUZXh0KCkNCiAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgCXJldHVybiAiTGFiZWwgM" +
+                        "iEiOw0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAAATBbQXNzaWduZWRUb10gPSA/I" +
+                        "EFuZCBbRHVlRGF0ZV0gPD0gJ0BDdXJyZW50RGF0ZScBWlNwZWNpZnkgYSBjb250YWN0IHRvIGdlbmVyY" +
+                        "XRlIGEgcmVwb3J0IG9uIGhpcy9oZXIgdGFzayBzdGF0ZSBwbGFubmVkIGZvciB0aGUgY3VycmVudCBkY" +
+                        "XRlLgE7W0Fzc2lnbmVkVG9dID0gW0Fzc2lnbmVkVG9dIEFuZCBbRHVlRGF0ZV0gPD0gJ0BDdXJyZW50R" +
+                        "GF0ZScAARBUYXNrc1N0YXRlUmVwb3J0";
                     this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
                 }
                 return this._resources;

@@ -6,5 +6,5 @@ Total repx files found                                      :  2
   Total reports generated                                   :  2
   Total reports skipped because unchanged                   :  0
 
-Time elapsed: 00:00:00.1006266
+Time elapsed: 00:00:00.1314843
 

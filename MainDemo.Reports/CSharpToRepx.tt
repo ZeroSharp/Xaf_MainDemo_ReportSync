@@ -19,7 +19,7 @@
 <#
     Stopwatch stopwatch = new Stopwatch();
     stopwatch.Start();
-	Console.Beep();    
+    //Console.Beep();    
     var templateFile = Host.TemplateFile;
     string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
     string projectDir = Path.GetDirectoryName(templateFile);	
@@ -36,13 +36,12 @@
     {
         total = total + 1;
 
-        string relativeFileName = @"\" + fullFilename.Substring(solutionDir.Length);
+        string relativeFileName = fullFilename.Substring(projectDir.Length);
 
         string scriptsPartOutputFilename = fullFilename.Replace(".repx.cs", ".cs");
         string designerPartOutputFilename = fullFilename;
 
-        string repxFilename = Path.GetFullPath(solutionDir.TrimEnd(Path.DirectorySeparatorChar) + @"..\" + Path.ChangeExtension(relativeFileName, ""));
-
+        string repxFilename = Path.GetFullPath(solutionDir.TrimEnd(Path.DirectorySeparatorChar) + Path.ChangeExtension(relativeFileName, ""));
         if (!File.Exists(repxFilename))
         {
             Warning(String.Format("Could not find repx file {0} while transforming CSharpToRepx.", repxFilename));
@@ -50,8 +49,9 @@
         }
         else
         {
-			var injector = new XtraReportScriptInjector(repxFilename);
-			injector.InjectScripts(File.ReadAllText(scriptsPartOutputFilename), repxFilename);
+            var injector = new XtraReportScriptInjector(repxFilename);
+            string scriptSource = File.ReadAllText(scriptsPartOutputFilename);
+            injector.InjectScripts(scriptSource, repxFilename, replaceOriginal: true);
         }
     }
 
@@ -59,66 +59,15 @@
     WriteLine("");
     WriteLine("Summary of process repx files");
     WriteLine("=============================");
-    WriteLine(string.Format("{0,-60}:{1, 3}", "Total repx files found", total));
-    WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports injected", total - skipped));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "Total C# files found", total));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports injected", total - skipped - missing));
+    WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports missing", missing));
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 
     stopwatch.Stop();
-	Console.Beep();
+    //Console.Beep();
 
     // Write result
     WriteLine("");
     WriteLine("Time elapsed: {0}", stopwatch.Elapsed);
-#>
-
-<#+
-    public abstract class XtraReportTemplateBase : T4Toolbox.Template
-    {
-        public XtraReportTemplateBase(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider)
-        {
-            Reader = reader;
-            UniqueIdentifierProvider = uniqueIdentifierProvider;
-        }
-
-        public XtraReportReader Reader { get; private set; }
-        public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
-        public string ExistingFile { get; set; }
-    }
-
-    public class DesignerPartTemplate : XtraReportTemplateBase
-    {
-    public DesignerPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
-
-        public override string TransformText()
-        {
-            if (ExistingFile != null)
-                if (File.Exists(ExistingFile))
-                    return File.ReadAllText(ExistingFile);
-
-            var mainPartFactory = new XtraReportDesignerPartFactory(Reader, UniqueIdentifierProvider);
-            string code = mainPartFactory.GetMainCode();
-            WriteLine(code);
-
-            return this.GenerationEnvironment.ToString();
-        }
-    }
-
-    public class ScriptsPartTemplate : XtraReportTemplateBase
-    {
-    public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
-
-    public string Checksum { get; set; }
-
-        public override string TransformText()
-        {
-            if (ExistingFile != null)
-                return File.ReadAllText(ExistingFile);
-    
-            this.WriteLine(ChecksumCalculator.ChecksumPrefix + Checksum);
-            var scriptsPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
-            var code = scriptsPartFactory.GetScriptsCode();
-            WriteLine(code);
-            return this.GenerationEnvironment.ToString();
-        }
-    }
 #>

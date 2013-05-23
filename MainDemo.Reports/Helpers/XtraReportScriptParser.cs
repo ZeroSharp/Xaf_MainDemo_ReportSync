@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
+using System.Text;
 
 namespace MainDemo.Reports
 {
     public static class XtraReportSyncMarkers
     {
-        public const string StartMarker = "// -- Start of embedded scripts -- ";
-        public const string EndMarker = "// -- End of embedded scripts -- ";
+        public const string StartMarker = @"// -- Start of embedded scripts --";
+        public const string EndMarker = @"// -- End of embedded scripts --";
     }
 
     public class XtraReportScriptParser
