@@ -1,4 +1,4 @@
-// Checksum:3D89800125A4DD52368241A24F42B5CF
+﻿// Checksum:6E8A64D8BF2E4FC7FA55C98BEF6C9FCF
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
 ///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll</AssemblyLocation>
@@ -220,7 +220,7 @@ partial class _ContactsGroupedByPosition : DevExpress.ExpressApp.Reports.XafRepo
             this.PageHeight = 1100;
             this.PageWidth = 850;
             this.ScriptsSource = "\r\n\r\nprivate void xrLabel4_BeforePrint(object sender, System.Drawing.Printing.Prin" +
-                "tEventArgs e) {\r\n    xrLabel4.Text = xrLabel4.Text + \" New2!\";\r\n}";
+                "tEventArgs e) {\r\n    xrLabel4.Text = xrLabel4.Text + \" New3!\";\r\n}";
             this.Version = "12.2";
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
         }

@@ -30,10 +30,12 @@ namespace MainDemo.Reports
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine();
+            sb.AppendLine("// -- Anything above this line will be ignored when converting back to repx. --");
             sb.AppendLine(XtraReportSyncMarkers.StartMarker);
             var parser = new XtraReportScriptParser();
             sb.AppendLine(parser.MaximumUnindent(ScriptExtractor.ExtractScripts()));
             sb.AppendLine(XtraReportSyncMarkers.EndMarker);
+            sb.AppendLine("// -- Anything below this line will be ignored when converting back to repx. --");
             sb.AppendLine();
             return sb.ToString();
         }

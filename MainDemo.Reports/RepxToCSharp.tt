@@ -20,7 +20,7 @@
     Stopwatch stopwatch = new Stopwatch();
     stopwatch.Start();
     
-    //Console.Beep();
+    Console.Beep();
     var templateFile = Host.TemplateFile;
     string solutionDir = Host.ResolveAssemblyReference("$(SolutionDir)");
     string projectDir = Path.GetDirectoryName(templateFile);	
@@ -58,7 +58,7 @@
         scriptsPartTemplate.RenderToFile(scriptsPartOutputFilename);
 
         var designerPartTemplate = new DesignerPartTemplate(reader, uniqueIdentifierProvider);
-		designerPartTemplate.GenerateChecksum = () => scriptsPartTemplate.ScriptsChecksum;
+        designerPartTemplate.GenerateChecksum = () => scriptsPartTemplate.ScriptsChecksum;
         if (preserveExisting)
             designerPartTemplate.ExistingFile = designerPartOutputFilename;	
         // T4Toolbox 11.7.0.0 doesn't support nested files very well.
@@ -72,14 +72,14 @@
 
     WriteLine("(This is an automatically generated file which should be excluded from version control)");
     WriteLine("");
-    WriteLine("Summary of process repx files");
-    WriteLine("=============================");
+    WriteLine("Summary of repx transformation");
+    WriteLine("==============================");
     WriteLine(string.Format("{0,-60}:{1, 3}", "Total repx files found", total));
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports generated", total - skipped));
     WriteLine(string.Format("{0,-60}:{1, 3}", "  Total reports skipped because unchanged", skipped));
 
     stopwatch.Stop();
-    //Console.Beep();
+    Console.Beep();
 
     // Write result
     WriteLine("");
@@ -94,8 +94,8 @@
             Reader = reader;
             UniqueIdentifierProvider = uniqueIdentifierProvider;
         }
-		
-		public Func<string> GenerateChecksum { get; set; }
+        
+        public Func<string> GenerateChecksum { get; set; }
         public XtraReportReader Reader { get; private set; }
         public UniqueIdentifierProvider UniqueIdentifierProvider { get; private set; }
         public string ExistingFile { get; set; }
@@ -122,21 +122,21 @@
 
     public class ScriptsPartTemplate : XtraReportTemplateBase
     {
-    	public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
+        public ScriptsPartTemplate(XtraReportReader reader, UniqueIdentifierProvider uniqueIdentifierProvider) : base(reader, uniqueIdentifierProvider) {}
 
-		public string ScriptsChecksum { get; private set; }
+        public string ScriptsChecksum { get; private set; }
 
         public override string TransformText()
         {
             if (ExistingFile != null)
                 return File.ReadAllText(ExistingFile);
-			
+        
             this.WriteLine(ChecksumParser.ChecksumPrefix + GenerateChecksum());
             var mainPartFactory = new XtraReportScriptsPartFactory(Reader, UniqueIdentifierProvider);
             var code = mainPartFactory.GetScriptsCode();
             WriteLine(code);
 
-			ScriptsChecksum = ChecksumCalculator.Get(this.GenerationEnvironment.ToString());
+            ScriptsChecksum = ChecksumCalculator.Get(this.GenerationEnvironment.ToString());
 
             return this.GenerationEnvironment.ToString();
         }

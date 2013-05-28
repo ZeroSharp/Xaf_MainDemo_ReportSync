@@ -69,7 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AssertReportScriptsEx.cs" />
     <Compile Include="Helpers\ChecksumCalculator.cs" />
     <Compile Include="Helpers\ChecksumExtractor.cs" />
     <Compile Include="Helpers\ChecksumParser.cs" />

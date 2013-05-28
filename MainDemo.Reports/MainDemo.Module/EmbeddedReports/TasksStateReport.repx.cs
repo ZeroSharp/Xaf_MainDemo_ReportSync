@@ -1,4 +1,4 @@
-﻿// Checksum:74CFDB7AE1AEC4B0FF20152721C97D8B
+﻿// Checksum:1DBFD3D45E5F212B50AEA93548F0B1F6
 /// <XRTypeInfo>
 ///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</AssemblyFullName>
 ///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.2\12.2.8.0__b88d1754d700e49a\DevExpress.ExpressApp.Reports.v12.2.dll</AssemblyLocation>

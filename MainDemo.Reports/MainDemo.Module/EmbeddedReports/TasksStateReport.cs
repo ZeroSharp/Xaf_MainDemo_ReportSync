@@ -5,6 +5,7 @@
 namespace MainDemo.Reports.MainDemo_Module.EmbeddedReports._TasksStateReport {
     public partial class _TasksStateReport
     {
+        // -- Anything above this line will be ignored when converting back to repx. --
         // -- Start of embedded scripts --
         private void xrLabel1_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e) {       
             // This is a test        
@@ -18,6 +19,7 @@ namespace MainDemo.Reports.MainDemo_Module.EmbeddedReports._TasksStateReport {
             return "Label 2!";        
         }
         // -- End of embedded scripts --
+        // -- Anything below this line will be ignored when converting back to repx. --
     }
 }
 
