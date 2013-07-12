@@ -2,10 +2,10 @@
 <#@ output extension="txt" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Drawing.dll"#>
-<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v12.2.dll"#>
-<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.ExpressApp.Reports.v12.2.dll"#>
-<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Printing.v12.2.Core.dll"#>
-<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.XtraReports.v12.2.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Data.v13.1.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.ExpressApp.Reports.v13.1.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.Printing.v13.1.Core.dll"#>
+<#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\DevExpress.XtraReports.v13.1.dll"#>
 <#@ assembly name="$(SolutionDir)MainDemo.Reports\bin\Debug\MainDemo.Reports.dll"#>
 <#@ import namespace="System.Diagnostics" #>
 <#@ import namespace="System.IO" #>

@@ -1,22 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="5" >
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
+    <!-- Win -->
+    <Application
+			Name="MainDemoWin"
+			FileName="[ConfigPath]\..\MainDemo.Win\Bin\Debug\MainDemo.Win.exe"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+			CommunicationPort="4100"/>
+    <Application
+			Name="MainDemoWinRibbon"
+			FileName="[ConfigPath]\..\MainDemo.Win.Ribbon\Bin\Debug\MainDemo.Win.Ribbon.exe"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+			CommunicationPort="4100"/>
     <!-- Web -->
     <Application
-      Name="MainDemoWeb"
-      Url="http://localhost:4030"
-      SingleWebDev="True"
-      WebBrowserType="Standalone"
-      PhysicalPath="[ConfigPath]\..\MainDemo.Web"
-      AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/>
+			Name="MainDemoWeb"
+			Url="http://localhost:4030"
+			PhysicalPath="[ConfigPath]\..\MainDemo.Web"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/>
     <!-- For IIS -->
-    <!--<Application
-      Name="MainDemoWeb"
-      Url="http://localhost/MainDemo.Web/Default.aspx"
-      PhysicalPath=""
-      DontRestartIIS="True"
-      DontRunWebDev="True"
-      WebBrowserType="Standalone"      
-      AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/-->
+    <!--Application
+			Name="MainDemoWeb"
+			Url="http://localhost/MainDemo.Web/Default.aspx"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/-->
   </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" Name="MainDemo" DBName="MainDemo_v13.1"/>
+  </TestDatabases>
 </Options>

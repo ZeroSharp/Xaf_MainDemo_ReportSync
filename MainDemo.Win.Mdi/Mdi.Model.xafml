@@ -1,12 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <Options UIType="TabbedMDI"/>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MainDemo.Module.BusinessObjects.Contact_ListView" Index="0" />
+          <Item Id="MainDemo.Module.BusinessObjects.DemoTask_ListView" Index="1" />
+          <Item Id="MainDemo.Module.BusinessObjects.Department_ListView" Index="2" />
+          <Item Id="DevExpress.Persistent.BaseImpl.Event_ListView" Index="3" />
+          <Item Id="MyDetails" Index="4" />
+          <Item Id="Note" Index="5" />
+          <Item Id="MainDemo.Module.BusinessObjects.Payment_ListView" Index="6" />
+          <Item Id="MainDemo.Module.BusinessObjects.Position_ListView" Index="7" />
+          <Item Id="MainDemo.Module.BusinessObjects.Resume_ListView" Index="8" />
+          <Item Id="DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole_ListView" Index="9" />
+          <Item Id="DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser_ListView" Index="10" />
+        </Items>
+      </Item>
+      <Item Id="Reports">
+        <Items>
+          <Item Id="DevExpress.Persistent.BaseImpl.Analysis_ListView" Index="0" />
+          <Item Id="Reports" Index="1" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options UIType="TabbedMDI" />
   <SchemaModules>
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.4.4025" />
-		<SchemaModule Name="ViewVariantsModule" Version="7.3.4.4025" />
-		<SchemaModule Name="SystemModule" Version="7.3.4.4025" />
-		<SchemaModule Name="ValidationModule" Version="7.3.4.4025" />
-		<SchemaModule Name="SystemWindowsFormsModule" Version="7.3.4.4025" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.4.4025" IsNewNode="True" />
-	</SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="13.1.1.0" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="13.1.1.0" />
+    <SchemaModule Name="SystemModule" Version="13.1.1.0" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="13.1.1.0" />
+    <SchemaModule Name="ValidationModule" Version="13.1.1.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.1.1.0" />
+  </SchemaModules>
 </Application>

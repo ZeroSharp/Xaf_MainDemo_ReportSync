@@ -4,7 +4,7 @@
     <Actions>
       <Action Id="ClearFieldsAction" SelectionDependencyType="RequireSingleObject" ConfirmationMessage="Are you sure you want to clear all the fields?" ToolTip="Clear the current object's fields" Shortcut="Control+Shift+C" />
       <Action Id="SaveAndClose" ValidationContexts="SaveAndClose" />
-      <Action Id="Task.MarkCompleted" ValidationContexts="MarkCompleted" />
+      <Action Id="DevExpress.Persistent.BaseImpl.Task.MarkCompleted" ValidationContexts="MarkCompleted" />
     </Actions>
     <ActionToContainerMapping>
       <ActionContainer Id="RecordEdit">
@@ -40,22 +40,20 @@
     <CreatableItem ClassName="DevExpress.Persistent.BaseImpl.Event" Caption="Scheduler Event" IsNewNode="True" />
     <CreatableItem ClassName="DevExpress.Persistent.BaseImpl.Note" IsNewNode="True" />
   </CreatableItems>
-  <NavigationItems GenerateRelatedViewVariantsGroup="True" GenerateRelatedReportsGroup="True" GenerateRelatedAnalysisGroup="True">
+  <NavigationItems GenerateRelatedViewVariantsGroup="True" GenerateRelatedReportsGroup="True" GenerateRelatedAnalysisGroup="True" StartupNavigationItem="MainDemo.Module.BusinessObjects.Contact_ListView">
     <Items>
       <Item Id="Default" ChildItemsDisplayStyle="List" Index="0">
         <Items>
-          <Item Id="Contact_ListView" ViewId="Contact_ListView_Varied" />
-          <Item Id="Note" ViewId="Note_ListView" IsNewNode="True" />
+          <Item Id="MainDemo.Module.BusinessObjects.Contact_ListView" ViewId="Contact_ListView_Varied" />
+          <Item Id="Note" ViewId="DevExpress.Persistent.BaseImpl.Note_ListView" IsNewNode="True" />
         </Items>
       </Item>
     </Items>
   </NavigationItems>
   <SchemaModules IsNewNode="True">
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.6.4097" IsNewNode="True" />
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.6.4097" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="11.2.1.0" IsNewNode="True" />
-    <SchemaModule Name="ValidationModule" Version="11.2.1.0" IsNewNode="True" />
-    <SchemaModule Name="ViewVariantsModule" Version="11.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="ValidationModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.1.1.0" IsNewNode="True" />
   </SchemaModules>
   <Validation>
     <Rules>
@@ -91,7 +89,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="Contact_DetailView">
+    <DetailView Id="MainDemo.Module.BusinessObjects.Contact_DetailView">
       <Items>
         <PropertyEditor Id="Department.Office" PropertyName="Department.Office" IsNewNode="True" />
         <PropertyEditor Id="Position" ToolTip="Select a job position for the current contact from available positions in the selected department" />
@@ -134,7 +132,6 @@
               <LayoutGroup Id="Person_col2" RelativeSize="38">
                 <LayoutItem Id="Photo" Index="0" RelativeSize="97" ViewItem="Photo" IsNewNode="True" />
                 <LayoutItem Id="Birthday" ViewItem="Birthday" Removed="True" />
-                <LayoutItem Id="DisplayName" ViewItem="DisplayName" Removed="True" />
                 <LayoutItem Id="Email" ViewItem="Email" Removed="True" />
                 <LayoutItem Id="FullName" ViewItem="FullName" Removed="True" />
               </LayoutGroup>
@@ -155,7 +152,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Contact_ListView" IsGroupPanelVisible="True">
+    <ListView Id="MainDemo.Module.BusinessObjects.Contact_ListView" IsGroupPanelVisible="True">
       <Columns>
         <ColumnInfo Id="Anniversary" PropertyName="Anniversary" Index="-1" />
         <ColumnInfo Id="FullName" PropertyName="FullName" Index="-1" SortIndex="-1" SortOrder="None" />
@@ -200,73 +197,78 @@
     </ListView>
     <ListView Id="Contact_ListView_Varied" ClassName="MainDemo.Module.BusinessObjects.Contact" IsNewNode="True">
       <Variants IsNewNode="True">
-        <Variant Id="Default" Caption="Few columns" ViewID="Contact_ListView" Index="1" IsNewNode="True" />
+        <Variant Id="Default" Caption="Few columns" ViewID="MainDemo.Module.BusinessObjects.Contact_ListView" Index="1" IsNewNode="True" />
         <Variant Id="All columns" Caption="All columns" ViewID="Contact_ListView_AllColumns" Index="2" IsNewNode="True" />
       </Variants>
     </ListView>
-    <ListView Id="Contact_LookupListView">
+    <ListView Id="MainDemo.Module.BusinessObjects.Contact_LookupListView">
       <Columns>
         <ColumnInfo Id="FullName" PropertyName="FullName" Index="-1" SortOrder="None" />
         <ColumnInfo Id="LastName" PropertyName="LastName" Index="0" SortOrder="Ascending" IsNewNode="True" />
       </Columns>
     </ListView>
-    <ListView Id="Contact_Tasks_ListView" AllowEdit="True" NewItemRowPosition="Top" />
-    <ListView Id="DemoTask_ListView" PreviewColumnName="Description" AllowEdit="True" NewItemRowPosition="Top" >
-		  <Columns>
-			  <ColumnInfo Id="Status" PropertyName="Status" Index="2" />
-		  </Columns>
-	  </ListView>
-    <ListView Id="Department_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <ListView Id="User_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="User_MasterDetailView">
+    <ListView Id="MainDemo.Module.BusinessObjects.Contact_Tasks_ListView" AllowEdit="True" NewItemRowPosition="Top" />
+    <ListView Id="MainDemo.Module.BusinessObjects.DemoTask_ListView" AllowEdit="True" NewItemRowPosition="Top" IsFooterVisible="False" PreviewColumnName="Description">
+      <Columns>
+        <ColumnInfo Id="Status" PropertyName="Status" Index="2" />
+        <ColumnInfo Id="ActualWork">
+          <Summary>
+            <ColumnSummaryItem Id="Summary0" Index="0" SummaryType="Sum" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+      </Columns>
+    </ListView>
+    <ListView Id="MainDemo.Module.BusinessObjects.Department_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="DevExpress.Persistent.BaseImpl.User_ListView" MasterDetailMode="ListViewAndDetailView" MasterDetailView="User_MasterDetailView">
       <Columns>
         <ColumnInfo Id="FullName" PropertyName="FullName" Index="-1" SortIndex="-1" SortOrder="None" />
         <ColumnInfo Id="UserName" PropertyName="UserName" Index="0" SortIndex="0" SortOrder="Ascending" Width="70" />
       </Columns>
-        <SplitLayout SplitterPosition="250" />
+      <SplitLayout SplitterPosition="250" />
     </ListView>
-      <DetailView Id="User_MasterDetailView" ClassName="DevExpress.Persistent.BaseImpl.User" IsNewNode="True">
-          <Items IsNewNode="True">
-              <PropertyEditor Id="Address1" PropertyName="Address1" IsNewNode="True" />
-              <PropertyEditor Id="Address2" PropertyName="Address2" IsNewNode="True" />
-              <PropertyEditor Id="Birthday" PropertyName="Birthday" IsNewNode="True" />
-              <PropertyEditor Id="ChangePasswordOnFirstLogon" PropertyName="ChangePasswordOnFirstLogon" IsNewNode="True" />
-              <PropertyEditor Id="Email" PropertyName="Email" IsNewNode="True" />
-              <PropertyEditor Id="FirstName" PropertyName="FirstName" IsNewNode="True" />
-              <PropertyEditor Id="FullName" PropertyName="FullName" IsNewNode="True" />
-              <PropertyEditor Id="IsActive" PropertyName="IsActive" IsNewNode="True" />
-              <PropertyEditor Id="LastName" PropertyName="LastName" IsNewNode="True" />
-              <PropertyEditor Id="MiddleName" PropertyName="MiddleName" IsNewNode="True" />
-              <PropertyEditor Id="Photo" PropertyName="Photo" IsNewNode="True" />
-              <PropertyEditor Id="UserName" PropertyName="UserName" IsNewNode="True" />
-          </Items>
-          <Layout IsNewNode="True">
-              <LayoutGroup Id="Item1" ShowCaption="False" Caption="Main" ImageName="" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" IsNewNode="True">
-                  <LayoutGroup Id="Item2" ShowCaption="True" Caption="Security" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="10" IsNewNode="True">
-                      <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="34" IsNewNode="True" />
-                      <LayoutGroup Id="Group1" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="30" IsNewNode="True">
-                          <LayoutItem Id="IsActive"  ViewItem="IsActive" Index="0" RelativeSize="50" IsNewNode="True" />
-                          <LayoutItem Id="ChangePasswordOnFirstLogon" ShowCaption="False" ViewItem="ChangePasswordOnFirstLogon" Index="1" RelativeSize="50" IsNewNode="True" />
-                      </LayoutGroup>
-                  </LayoutGroup>
-                  <LayoutGroup Id="Person" ShowCaption="True" Caption="Basic" ImageName=""     Direction="Vertical" Index="1" RelativeSize="20" IsNewNode="True">
-                      <LayoutItem Id="FullName"  ViewItem="FullName"     Index="0" RelativeSize="17" IsNewNode="True" />
-                      <LayoutItem Id="Email"  ViewItem="Email"     Index="1" RelativeSize="13" IsNewNode="True" />
-                      <LayoutItem Id="FirstName"  ViewItem="FirstName"     Index="2" RelativeSize="13" IsNewNode="True" />
-                      <LayoutItem Id="LastName"  ViewItem="LastName"     Index="3" RelativeSize="13" IsNewNode="True" />
-                      <LayoutItem Id="MiddleName"  ViewItem="MiddleName"     Index="4" RelativeSize="13" IsNewNode="True" />
-                      <LayoutItem Id="Birthday"  ViewItem="Birthday"     Index="5" RelativeSize="17" IsNewNode="True" />
-                  </LayoutGroup>
-                  <LayoutGroup Id="Group2" ShowCaption="False" Caption="" Direction="Horizontal" Index="2" RelativeSize="68" ImageName=""     IsNewNode="True">
-                      <LayoutGroup Id="Item2" ShowCaption="True" Caption="Address" ImageName="" CaptionLocation="Top"    Direction="Vertical" Index="0" RelativeSize="51" IsNewNode="True">
-                          <LayoutItem Id="Address1"  ViewItem="Address1"     Index="0" RelativeSize="5" IsNewNode="True" />
-                          <LayoutItem Id="Address2"  ViewItem="Address2"     Index="1" RelativeSize="88" IsNewNode="True" />
-                      </LayoutGroup>
-                      <LayoutGroup Id="Item3" ShowCaption="True" Caption="Photo" ImageName="" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="48" IsNewNode="True">
-                          <LayoutItem Id="Photo" ShowCaption="False"  ViewItem="Photo"     Index="0" RelativeSize="93" IsNewNode="True" />
-                      </LayoutGroup>
-                  </LayoutGroup>
-              </LayoutGroup>
-          </Layout>
-      </DetailView>
+    <DetailView Id="User_MasterDetailView" ClassName="DevExpress.Persistent.BaseImpl.User" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Address1" PropertyName="Address1" IsNewNode="True" />
+        <PropertyEditor Id="Address2" PropertyName="Address2" IsNewNode="True" />
+        <PropertyEditor Id="Birthday" PropertyName="Birthday" IsNewNode="True" />
+        <PropertyEditor Id="ChangePasswordOnFirstLogon" PropertyName="ChangePasswordOnFirstLogon" IsNewNode="True" />
+        <PropertyEditor Id="Email" PropertyName="Email" IsNewNode="True" />
+        <PropertyEditor Id="FirstName" PropertyName="FirstName" IsNewNode="True" />
+        <PropertyEditor Id="FullName" PropertyName="FullName" IsNewNode="True" />
+        <PropertyEditor Id="IsActive" PropertyName="IsActive" IsNewNode="True" />
+        <PropertyEditor Id="LastName" PropertyName="LastName" IsNewNode="True" />
+        <PropertyEditor Id="MiddleName" PropertyName="MiddleName" IsNewNode="True" />
+        <PropertyEditor Id="Photo" PropertyName="Photo" IsNewNode="True" />
+        <PropertyEditor Id="UserName" PropertyName="UserName" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Item1" ShowCaption="False" Caption="Main" ImageName="" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="Item2" ShowCaption="True" Caption="Security" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="10" IsNewNode="True">
+            <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="34" IsNewNode="True" />
+            <LayoutGroup Id="Group1" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="30" IsNewNode="True">
+              <LayoutItem Id="IsActive" ViewItem="IsActive" Index="0" RelativeSize="50" IsNewNode="True" />
+              <LayoutItem Id="ChangePasswordOnFirstLogon" ShowCaption="False" ViewItem="ChangePasswordOnFirstLogon" Index="1" RelativeSize="50" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Person" ShowCaption="True" Caption="Basic" ImageName="" Direction="Vertical" Index="1" RelativeSize="20" IsNewNode="True">
+            <LayoutItem Id="FullName" ViewItem="FullName" Index="0" RelativeSize="17" IsNewNode="True" />
+            <LayoutItem Id="Email" ViewItem="Email" Index="1" RelativeSize="13" IsNewNode="True" />
+            <LayoutItem Id="FirstName" ViewItem="FirstName" Index="2" RelativeSize="13" IsNewNode="True" />
+            <LayoutItem Id="LastName" ViewItem="LastName" Index="3" RelativeSize="13" IsNewNode="True" />
+            <LayoutItem Id="MiddleName" ViewItem="MiddleName" Index="4" RelativeSize="13" IsNewNode="True" />
+            <LayoutItem Id="Birthday" ViewItem="Birthday" Index="5" RelativeSize="17" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Group2" ShowCaption="False" Caption="" Direction="Horizontal" Index="2" RelativeSize="68" ImageName="" IsNewNode="True">
+            <LayoutGroup Id="Item2" ShowCaption="True" Caption="Address" ImageName="" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="51" IsNewNode="True">
+              <LayoutItem Id="Address1" ViewItem="Address1" Index="0" RelativeSize="5" IsNewNode="True" />
+              <LayoutItem Id="Address2" ViewItem="Address2" Index="1" RelativeSize="88" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item3" ShowCaption="True" Caption="Photo" ImageName="" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="48" IsNewNode="True">
+              <LayoutItem Id="Photo" ShowCaption="False" ViewItem="Photo" Index="0" RelativeSize="93" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

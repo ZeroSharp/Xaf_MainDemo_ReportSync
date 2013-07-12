@@ -1,8 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MainDemo.Module.BusinessObjects.Contact_ListView" Index="0" />
+          <Item Id="MainDemo.Module.BusinessObjects.DemoTask_ListView" Index="1" />
+          <Item Id="MainDemo.Module.BusinessObjects.Department_ListView" Index="2" />
+          <Item Id="DevExpress.Persistent.BaseImpl.Event_ListView" Index="3" />
+          <Item Id="MyDetails" Index="4" />
+          <Item Id="Note" Index="5" />
+          <Item Id="MainDemo.Module.BusinessObjects.Payment_ListView" Index="6" />
+          <Item Id="MainDemo.Module.BusinessObjects.Position_ListView" Index="7" />
+          <Item Id="MainDemo.Module.BusinessObjects.Resume_ListView" Index="8" />
+          <Item Id="DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole_ListView" Index="9" />
+          <Item Id="DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser_ListView" Index="10" />
+        </Items>
+      </Item>
+      <Item Id="Reports">
+        <Items>
+          <Item Id="DevExpress.Persistent.BaseImpl.Analysis_ListView" Index="0" />
+          <Item Id="Reports" Index="1" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="SchedulerAspNetModule" Version="11.2.1.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerModuleBase" Version="11.2.1.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="11.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerAspNetModule" Version="13.1.1.0" />
+    <SchemaModule Name="SchedulerModuleBase" Version="13.1.1.0" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.1.0" />
+    <SchemaModule Name="SystemModule" Version="13.1.1.0" />
   </SchemaModules>
 </Application>

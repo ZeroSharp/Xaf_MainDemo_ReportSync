@@ -11,22 +11,13 @@
         <Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Web.ASPxHtmlPropertyEditor" />
       </OwnMembers>
     </Class>
-    <Class Name="MainDemo.Module.BusinessObjects.Contact" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.DemoTask" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.Department" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.Payment" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.PortfolioFileData" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.Position" DefaultListViewShowAutoFilterRow="True" />
-    <Class Name="MainDemo.Module.BusinessObjects.Resume" DefaultListViewShowAutoFilterRow="True" />
   </BOModel>
   <SchemaModules>
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.4.4025" IsNewNode="True" />
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.4.4025" />
-    <SchemaModule Name="SchedulerAspNetModule" Version="12.2.8.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerModuleBase" Version="12.2.8.0" IsNewNode="True" />
-    <SchemaModule Name="SystemAspNetModule" Version="12.2.8.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="12.2.8.0" />
-    <SchemaModule Name="ValidationModule" Version="12.2.8.0" />
-    <SchemaModule Name="ViewVariantsModule" Version="12.2.8.0" />
+    <SchemaModule Name="SchedulerAspNetModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.1.0" />
+    <SchemaModule Name="ValidationModule" Version="13.1.1.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.1.1.0" />
   </SchemaModules>
 </Application>

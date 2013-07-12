@@ -24,13 +24,7 @@ namespace MainDemo.Win {
 		public static void Main(string[] arguments) {
 			MainDemoWinApplication winApplication = new MainDemoWinApplication();
 #if DEBUG
-			try {
                 EasyTestRemotingRegistration.Register();
-                //DevExpress.EasyTest.Framework.EasyTestTracer.Tracer.SetTraceLevel(System.Diagnostics.TraceLevel.Verbose);
-				//DevExpress.ExpressApp.EasyTest.WinAdapter.RemotingRegistration.Register(4100);
-                winApplication.SplashScreenType = null;
-			}
-			catch(Exception) { }
 #endif
             winApplication.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(winApplication_CustomizeFormattingCulture);
             try {

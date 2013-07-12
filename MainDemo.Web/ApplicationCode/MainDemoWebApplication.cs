@@ -73,7 +73,7 @@ namespace MainDemo.Web {
             // sqlConnection1
             // 
             this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=MainDe" +
-                "mo_v12.2";
+                "mo_v13.1";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // securityComplex1

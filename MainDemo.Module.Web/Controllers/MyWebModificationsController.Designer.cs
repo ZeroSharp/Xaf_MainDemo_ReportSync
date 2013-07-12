@@ -1,6 +1,6 @@
 namespace MainDemo.Module.Web.Controllers
 {
-   partial class MyWebDetailViewController
+   partial class MyWebModificationsController
    {
       /// <summary>
       /// Required designer variable.

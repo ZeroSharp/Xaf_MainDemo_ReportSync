@@ -9,12 +9,12 @@ using MainDemo.Module.DatabaseUpdate;
 
 namespace MainDemo.Module.Win.DatabaseUpdate {
 	public class Updater : ModuleUpdater {
-
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             new TaskAnalysis1LayoutUpdater().Update(ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Completed tasks'")));
             new TaskAnalysis2LayoutUpdater().Update(ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Estimated and actual work comparison'")));
+            ObjectSpace.CommitChanges();
         }
 	}
 	public class TaskAnalysis1LayoutUpdater : TaskAnalysis1LayoutUpdaterBase {

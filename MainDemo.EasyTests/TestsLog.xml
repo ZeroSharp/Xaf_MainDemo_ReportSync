@@ -1,4 +1,0 @@
-<?xml version="1.0"?>
-<Tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Date="4/22/2013">
-  <Test Name="MainDemo_CycleThroughTabs" ApplicationName="MainDemoWeb" Result="Passed" Elapsed="00:00:28.3504818" Started="4/22/2013 4:13:19 PM" MachineName="BABBAGE" IP="192.168.1.64" />
-</Tests>

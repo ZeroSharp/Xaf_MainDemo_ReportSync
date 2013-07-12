@@ -24,11 +24,7 @@ namespace MainDemo.Win.Mdi {
 		public static void Main(string[] arguments) {
 			MainDemoWinApplication winApplication = new MainDemoWinApplication();
 #if DEBUG
-			try {
                 DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
-                winApplication.SplashScreenType = null;
-            } 
-            catch(Exception) { }
 #endif
             winApplication.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(winApplication_CustomizeFormattingCulture);
             try {

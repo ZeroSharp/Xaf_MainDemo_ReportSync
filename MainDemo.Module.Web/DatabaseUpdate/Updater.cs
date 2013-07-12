@@ -14,7 +14,8 @@ namespace MainDemo.Module.Web.DatabaseUpdate {
 			base.UpdateDatabaseAfterUpdateSchema();
 			new TaskAnalysis1LayoutUpdater().Update(ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Completed tasks'")));
 			new TaskAnalysis2LayoutUpdater().Update(ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Estimated and actual work comparison'")));
-		}
+            ObjectSpace.CommitChanges();
+        }
 	}
 	public class TaskAnalysis1LayoutUpdater : TaskAnalysis1LayoutUpdaterBase {
 		protected override IAnalysisControl CreateAnalysisControl() {

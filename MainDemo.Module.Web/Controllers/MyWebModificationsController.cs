@@ -5,8 +5,8 @@ using MainDemo.Module.BusinessObjects;
 using System;
 
 namespace MainDemo.Module.Web.Controllers {
-	public partial class MyWebDetailViewController : WebDetailViewController {
-		public MyWebDetailViewController() {
+	public partial class MyWebModificationsController : WebModificationsController {
+		public MyWebModificationsController() {
 			InitializeComponent();
 			RegisterActions(components);
 		}

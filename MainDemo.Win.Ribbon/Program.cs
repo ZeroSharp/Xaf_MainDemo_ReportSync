@@ -24,12 +24,8 @@ namespace MainDemo.Win {
         [STAThread]
 		public static void Main(string[] arguments) {
 			MainDemoWinApplication winApplication = new MainDemoWinApplication();
-            winApplication.SplashScreenType = null;
 #if DEBUG
-			try {
                 EasyTestRemotingRegistration.Register();
-			}
-			catch(Exception) { }
 #endif
             winApplication.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(winApplication_CustomizeFormattingCulture);
             try {
